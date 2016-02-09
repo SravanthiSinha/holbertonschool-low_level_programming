@@ -1,7 +1,4 @@
-/* This is the prototype of the function
- * print_char
- */
-int print_char(char);
+#include "my_functions.h"
 
 /* The function positive_or_not prints P,N,Z based on input
  * P if the number is positive,

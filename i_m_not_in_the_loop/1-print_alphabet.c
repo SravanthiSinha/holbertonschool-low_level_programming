@@ -1,7 +1,4 @@
-/* This is the prototype of the function
- * print_char
- */
-int print_char(char);
+#include "my_functions.h"
 
 /* The function print_alphabet prints
  * the values from a to z.

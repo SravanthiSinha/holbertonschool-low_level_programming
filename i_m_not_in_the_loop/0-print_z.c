@@ -1,7 +1,4 @@
-/* This is the prototype of the function
- * print_char
- */
-int print_char(char c);
+#include "my_functions.h"
 
 /* The function print_z prints
  * the text "z".

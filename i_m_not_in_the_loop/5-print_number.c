@@ -1,5 +1,4 @@
-/* This is the prototype of the function print_char */
-int print_char(char);
+#include "my_functions.h"
 
 /* This is the prototype of the function power */
 long power(unsigned long , int);

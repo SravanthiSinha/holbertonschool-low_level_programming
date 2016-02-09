@@ -1,7 +1,4 @@
-/* This is the prototype of the function
- * print_char
- */
-int print_char(char);
+#include "my_functions.h"
 
 /* The function print_base16 prints
  * the Hexadecimal Range (ie)"0-F"
