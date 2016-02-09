@@ -1,5 +1,13 @@
+/* This is the prototype of the function
+ * print_char
+ */
 int print_char(char);
 
+/* The function print_alphabet prints
+ * the values from a to z.
+ * It takes no argument (void) and
+ * returns nothing (void)
+ */
 void print_alphabet(void)
 {
   char c;
