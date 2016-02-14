@@ -3,9 +3,7 @@
 void print_combination_3(void);
 
 void print_combination_3(void){
-  int i=0;
-  int j=0;
-  int k=0;
+  int i,j,k;
   for(i=0;i<=9;i++)
     {
       for (j=1;j<=9;j++)
