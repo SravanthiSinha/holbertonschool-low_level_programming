@@ -1,6 +1,6 @@
 #include "my_functions.h"
 
-/* The function print_combination_1 takes no arguments
+/* The function print_combination_2 takes no arguments
  * and prints it on one line - all possible
  * combinations of two-digit numbers in 
  * ascending order seperated by comma followe by a space. 
