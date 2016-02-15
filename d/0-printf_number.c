@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "my_functions.h"
 
 /* The function print_number takes an integer
