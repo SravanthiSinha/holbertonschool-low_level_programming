@@ -10,6 +10,7 @@
 void print_combination_4(void){
   int i,j, k,l,a,b;
   int end=9;
+  
   for(i=0;i<=end;i++)
       for (j=0;j<=end;j++)	
 	  for (k=0;k<=end;k++)	    
