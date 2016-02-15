@@ -1,10 +1,15 @@
 #include "my_functions.h"
 
-void print_combination_2(void);
-
+/* The function print_combination_1 takes no arguments
+ * and prints it on one line - all possible
+ * combinations of two-digit numbers in 
+ * ascending order seperated by comma followe by a space. 
+ * takes no argument
+ * returns nothing (void)
+ */
 void print_combination_2(void){
-  int i=0;
-  int j=0;
+  int i,j;
+
   for(i=0;i<=9;i++)
     {
       for (j=1;j<=9;j++)
