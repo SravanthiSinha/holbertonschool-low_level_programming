@@ -31,5 +31,4 @@ void print_combination_4(void){
 			}
 		    }
 		}
-	    
 }       
