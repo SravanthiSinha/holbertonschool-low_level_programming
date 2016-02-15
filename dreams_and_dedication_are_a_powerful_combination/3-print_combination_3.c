@@ -1,9 +1,8 @@
 #include "my_functions.h"
 
-/* The function print_combination_1 takes no arguments
- * and prints it on one line - all possible
- * combinations of three-digit numbers in 
- * ascending order seperated by comma followe by a space. 
+/* The function print_combination_3 takes no arguments
+ * and prints it - all possible combinations of three-digit numbers
+ * seperated by comma followe by a space. 
  * takes no argument
  * returns nothing (void)
  */
