@@ -1,8 +1,8 @@
 #include "my_functions.h"
 
 /* The function print_combination_4 takes no arguments
- * and prints - all possible
- * combinations of two two-digit numbers seperated by comma followe by a space. 
+ * and prints - all possible combinations of two two-digit numbers
+ * seperated by comma followe by a space. 
  * takes no argument
  * returns nothing (void)
  */
