@@ -1,8 +1,15 @@
 #include<stdio.h>
- 
+
+/* This is the prototype of the function Fib (Fibonacci Number) */ 
 int Fib(int);
- 
-int main()
+
+/* The function prints the first 98 Fibonacci numbers,
+ * followed by a new line.
+ * uses fucntion Fib to compute a nth Fibonacci Number
+ * It takes a argument (int) and
+ * returns nothing (void)
+ */ 
+int main(void)
 {
    int  i = 0, counter;
 
@@ -15,10 +22,14 @@ int main()
 	}
       i++; 
    }
- 
+   printf("\n");
    return 0;
 }
- 
+
+/* The function Fib computes a Fibonacci Number recursively
+ * It takes a argument (int) and
+ * returns int
+ */ 
 int Fib(int n)
 {
    if ( n == 0 )

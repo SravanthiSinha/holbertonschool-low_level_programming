@@ -1,4 +1,5 @@
 #include "my_functions.h"
+#include<stdio.h>
 
 /* The function print_combination_2 takes no arguments
  * and prints it on one line - all possible
@@ -16,12 +17,12 @@ void print_combination_2(void){
 	{
 	  if(i<=j && i!=j)
 	    {
-	      print_char(i+48);
-	      print_char(j+48);
+	      printf("%d",i);
+	      printf("%d",j);
 	      if((i<8) && (j<=9))
 		{
-	       print_char(',');
-              print_char(' ');
+	       printf(",");
+               printf(" ");
 		}
 	    }
 	}
