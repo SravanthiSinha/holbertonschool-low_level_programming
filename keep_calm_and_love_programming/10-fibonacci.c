@@ -12,18 +12,16 @@ double Fib(double);
  */ 
 int main(void)
 {
-   double  i = 0, counter;
+  long  i = 1, fNo=0,sum=0;
 
-   for ( counter = 1 ; counter <= 50 ; counter++ )
+   while (fNo<=4000000)
     {
-      printf("%f", Fib(i));
-      if(counter<98)
-	{ 
-	printf(", ");
-	}
+      fNo=Fib(i);
+      if(fNo%2==0)
+	sum=sum+fNo;	
       i++; 
    }
-   printf("\n");
+   printf("%ld\n",sum);
    return 0;
 }
 
