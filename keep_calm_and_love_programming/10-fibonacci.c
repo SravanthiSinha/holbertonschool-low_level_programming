@@ -4,8 +4,8 @@
 /* This is the prototype of the function Fib (Fibonacci Number) */ 
 double Fib(double);
 
-/* The function prints the first 98 Fibonacci numbers,
- * followed by a new line.
+/* The function prints the  sum of the even-valued Fibonacci Number terms
+ * which are less than 4,000,000 , followed by a new line.
  * uses fucntion Fib to compute a nth Fibonacci Number
  * It takes a argument (int) and
  * returns nothing (void)
