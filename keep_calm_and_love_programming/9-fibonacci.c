@@ -1,42 +1,26 @@
 #include<stdio.h>
-#include<float.h>
 
-/* This is the prototype of the function Fib (Fibonacci Number) */ 
-double Fib(double);
-
-/* The function prints the first 98 Fibonacci numbers,
- * followed by a new line.
- * uses fucntion Fib to compute a nth Fibonacci Number
- * It takes a argument (int) and
- * returns nothing (void)
+/* The function prints the  prints the first 50 Fibonacci numbers,
+ * starting with 1 and 2, followed by a new line.
+ * It takes no arguments argument (void) and
+ * returns an int
  */ 
 int main(void)
 {
-   double  i = 0, counter;
+ long  count,a,b,c;
+  a=0;
+  b=1;
+  c=0;
 
-   for ( counter = 1 ; counter <= 50 ; counter++ )
+  for (count=0;count<=50;count++)
     {
-      printf("%f", Fib(i));
-      if(counter<98)
-	{ 
-	printf(", ");
-	}
-      i++; 
-   }
-   printf("\n");
-   return 0;
-}
+      printf("%lu",a+b);
+      if(count<50) printf(", ");
+      c=a;
+      a=b;
+      b=c+b;      
+    }
+	 printf("\n");
 
-/* The function Fib computes a Fibonacci Number recursively
- * It takes a argument (int) and
- * returns int
- */ 
-double  Fib(double  n)
-{
-   if ( n == 0 )
-      return 0;
-   else if ( n == 1 )
-      return 1;
-   else
-      return ( Fib(n-1) + Fib(n-2) );
-} 
+  return 0;
+}
