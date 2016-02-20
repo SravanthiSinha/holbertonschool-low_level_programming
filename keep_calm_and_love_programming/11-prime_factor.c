@@ -1,5 +1,10 @@
 #include<stdio.h>
 
+/*
+The fucntion finds and prints the largest prime factor
+of the number 612852475143, followed by a new line.
+ */
+
 int main(void)
 {
   unsigned long  n, div, max;

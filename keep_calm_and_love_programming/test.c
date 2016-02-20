@@ -1,28 +1,40 @@
 #include<stdio.h>
-#include<math.h>
 
-long double getFib(int count)
-{
-  long double result;
-  double g1=1.618034;
-  double g2=0.618034;
-  result=pow(g1,count)-pow((g2*-1),count);
-  result=result/sqrt(5);
-  return result;
-  
-}
+/* This is the prototype of the function Fib (Fibonacci Number) */ 
+unsigned long Fib(unsigned long);
 
-
+/* The function prints the first 98 Fibonacci numbers,
+ * followed by a new line.
+ * uses fucntion Fib to compute a nth Fibonacci Number
+ * It takes a argument (int) and
+ * returns nothing (void)
+ */ 
 int main(void)
 {
-  int count;
-  printf("0, 1, ");
-  for (count=1;count<=98;count++)
-    {
-      printf("%.0Lf", getFib(count);	    
-      if(count<98) printf(", ");        
-    }
-	 printf("\n");
+ unsigned long  i = 0, counter;
 
+  for ( counter = 1 ; counter <= 98 ; counter++ )
+    {
+      printf("%lu", Fib(i));
+      if(counter<98)
+	{ 
+	  printf(", ");
+	}
+      i++; 
+    }
+  printf("\n");
   return 0;
 }
+
+/* The function Fib computes a Fibonacci Number recursively
+ * It takes a argument (int) and
+ * returns int
+ */ 
+unsigned long  Fib(unsigned long  n)
+{
+  if ( n == 0 )
+    return 0;
+  else if ( n == 1 )
+    return 1;
+    return ( Fib(n-1) + Fib(n-2) );
+} 
