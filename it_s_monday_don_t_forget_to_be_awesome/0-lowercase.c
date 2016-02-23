@@ -1,4 +1,8 @@
-#include<stdio.h>
+/* The function lowercase takes 
+ * a character and converts a letter to lower case, if possible.
+ * It takes a argument (char c) and
+ * returns a character (char)
+ */
 
 char lowercase(char c)
 {
