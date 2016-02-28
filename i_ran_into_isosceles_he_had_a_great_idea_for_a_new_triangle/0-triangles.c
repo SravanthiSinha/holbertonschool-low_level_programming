@@ -24,12 +24,9 @@ void triangles_in_the_term(int h, int n)
 	    for(j = 0; j < (2 * h) - 1; j++)
 	    {	     
 	      if (j >= h - 1 - br && j <= h - 1 + br )
-		{
 		  print_char('*');
-		}
-	      else if(j < h - 1 - br) {
+	      else if(j < h - 1 - br) 
 		print_char(' ');
-	      }	 	      	     
 	    }
 	    br++;
 	  print_char('\n');
