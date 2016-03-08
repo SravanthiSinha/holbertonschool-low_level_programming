@@ -1,119 +1,55 @@
-#include<stdio.h>
-/* The function power computes the power recursively
- * and returns the value of x ^ y
- * It takes 2 arguments (unsigned long,int) and
- * returns a number  (long)
+#include <limits.h>
+
+/* The function is_number checks 
+ * whether a charactes is a number
+ * It takes 2 arguments (char ,int) and
+ * returns a number  (int)
  */
 
-long power(int x,int y)
+int is_number(char c, int option)
 {
-  if( y == 0)
-    return 1;
-  else if (y%2 == 0)
-    return power(x, y/2)*power(x, y/2);
+  if (option == 0)
+    {
+      if (c == 45)
+        return (-1);
+      else if (c >= 48 && c <= 57)
+        return(c - 48);
+      return (10);
+    }
   else
-    return x*power(x, y/2)*power(x, y/2);
+    if (c >= 48 && c <= 57)
+      return (1);
+  return (0);
 }
 
-int reversenumber(int n, int len)
-{
-  int tmp,x;
+/* The function string_to_integer
+ * returns the first number contained in a string
+ * It takes 1 argument (char *) and
+ * returns a number  (int)
+ */
 
-  while(len>0)
-    {
-      tmp=n%10;
-      x=x+tmp*power(10,len-1);
-      n=n/10;
-      len--;      
-    }
-
-  return x;
-  
-}
-
-int getlength(char *s)
-{
-  int x,i,len;
-  
-  x=0;
-  i=0;
-  len=0;
-  while (*(s+i)!='\0')
-    {
-      x= (*(s+i)-48);
-      if(x>=0 &&  x <=9)
-	{
-	  len++;
-	  if(*(s+i+1)<47  || *(s+i+1)>57)
-	    break;
-	}
-      i++;
-    }
-  return len;
-}
-
-int getsign(char *s)
-{
-  int x,i,len;
-  
-  x=0;
-  i=0;
-  len=0;
-  while (*(s+i)!='\0')
-    {
-      x= (*(s+i));
-      if(x=='-')
-	{
-	  len++;
-	  if(*(s+i+1)<47  || *(s+i+1)>57)
-	    break;
-	}
-      if(x=='+')
-	{
-	  len--;
-	  if(*(s+i+1)<47  || *(s+i+1)>57)
-	    break;
-	}
-      
-      i++;
-    }
-  return len;
-}
 
 int string_to_integer(char *s)
 {
-  int i,p,x,neg,len,op;
-  long n;
-  n=0,i=0, p=0,neg=0;
- 
-  len=getlength(s);
-  p=len;
-  neg=getsign(s);
-  while(*(s+i)!='\0')
+  int i, no, r, sign;
+
+  for (i = 0, no = 0, sign = -1; *(s + i) != '\0'; i++)
     {
-      x=(*(s+i) -48) ;      
-     
-      if(x>=0 && x<=9 )
-	{	  
-	  n= n + power(10,p-1)*x;
-	  
-	   if(n>2147483647 && neg==0)
-	    {
-	      n=0;
-	      break;
-	    }
-	   if(*(s+i+1)<47  || *(s+i+1)>57)
-	    {	      
-	    break;
-	    }
-	   p--;
-        }
-      i++;
+      r = is_number(*(s + i), 0);
+      if (r == -1 && !(is_number(*(s + i - 1), 1)))
+	sign *= r;
+      else if (r != 10)
+	if ( no < INT_MIN / 10 || ( no == INT_MIN / 10 && no == 9))
+	  return (0);
+	else
+	  no = (no * 10) - r;
+      else if (is_number(*(s + i - 1), 1))
+	break;
     }
-  
-    if(neg==1)
-      op=-1*n;
-    else
-      op=n;
-  return op;
+  if (sign < 0 && no == INT_MIN)
+    return (0);
+  else
+    no *= sign;
+
+  return(no);
 }
