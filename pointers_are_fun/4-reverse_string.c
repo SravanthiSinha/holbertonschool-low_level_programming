@@ -8,34 +8,24 @@ int str_len(char *str)
   return len;
 }
 
+
 /* The function reverse_string takes
  * an pointer to char
  * and prints the string in reverse.
  * It takes a argument (char *) and
  * returns nothing (void)
  */
-
-
 void reverse_string(char *s)
 {
-  int len,i;
-  char p[1000];
+  int len,i,j;
+  char c;
 
-  i=0;
-  len=str_len(s) - 1;
-  
-   while(len >= 0)
+  len=str_len(s);
+ 
+  for (i = 0, j = len -1; i < ((len -1 ) /2);i++,j--)
     {
-      *(p + i) = *(s + len);
-      len--;
-      i++;
+      c = *(s + i);
+      *(s + i)= *(s +j);
+      *(s + j)= c;
     }
-
-    *(p + i)='\0';
-    i=0;
-   while(*(p + i) != '\0')
-      {
-        *( s + i ) = *(p + i);
-        i++;
-      }
 }
