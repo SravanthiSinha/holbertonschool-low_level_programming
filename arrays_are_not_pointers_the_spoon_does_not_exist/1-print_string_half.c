@@ -18,8 +18,6 @@ int str_len(char *str)
   return len;
 }
 
-
-
 void print_string_half(char *str)
 {
   int len,start;
