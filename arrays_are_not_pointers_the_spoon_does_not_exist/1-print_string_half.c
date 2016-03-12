@@ -18,20 +18,20 @@ int str_len(char *str)
   return len;
 }
 
+
+/* The function print_string_half prints
+ * half of a string.
+ * It takes a argument (char *) and
+ * returns nothing (void)
+ */
+
 void print_string_half(char *str)
 {
-  int len,start;
+  int len,i;
   
-  len=str_len(str);
+  len = ( str_len( str ) + 1 ) / 2;
    
-  if(len%2==0)
-    start=len/2;
-  else
-    start= (len/2)+1;
-  while(*(str+start)!='\0')
-    {
-      print_char(*(str+start));
-      start++;
-    }
+  for(i = 0; i < len; i++)
+    print_char(*(str+len+i));
   
 }
