@@ -1,40 +1,46 @@
-#include<stdio.h>
 int print_char(char);
 void print_string(char *,int);
 void print_hex(int,int);
 void get_hex(int, char *s);
-int htoi(const char *s,int *p);
+unsigned int htoi(char s[]);
+
 void print_buffer(char *b,int size)
 {
-  int i,j,n;
+  int i,j,k;
+  unsigned int n;
   char s[]="00";  
-  i=0;
+  i=0,k=0;
+
   for (i=0;i<size;i=i+10)
     {
       print_hex(i,0);
       print_char(':');
 
-      for(j=0;j<10;j++)
+      for(j=0;j<10 && k< size;j++,k++)
 	{
-  	  if(j%2==0) print_char(' ');
+  	  if(j%2==0)
+	    print_char(' ');
 	  print_hex((int)b[i+j],6  );
 	}      
+      while(j<10)	
+	{
+	  print_char(' ');
+	  print_char(' ');
+  	  if(j%2==0)
+	    print_char(' ');
+	  j++;
+	}
       print_char(' ');
-      for(j=0;j<10;j++)
+      k=k-10;
+      for(j=0;j<10 && k< size;j++,k++)
 	{
 	 get_hex((int)b[i+j],s);	 
-	 htoi(s,&n);
-
-	 if(n==96 || (n<39 && n!=35 && n!=32 ) )
-	 print_char('.');
-	 else
-       print_char(n);
+	 n=htoi(s);
+	 n<31?print_char('.'):print_char(n);	  
 	}
-      print_char('\n');
-      
+      print_char('\n');     
     }
 }
-
 
 void print_hex(int n,int q)
 {
@@ -60,7 +66,8 @@ void get_hex(int n, char *s)
   int r,i;
 
   char c[]="0123456789abcdef";
-
+  s[0]='0';
+  s[1]='0';
   i=1;
   while(n>16)
     {
@@ -84,23 +91,33 @@ void print_string(char *str,int q)
     }
 }
 
-int htoi(const char *s, int  *result)
+unsigned int htoi(char s[])
 {
-  if ((*s == '0') && (s[1] == 'x' || s[1] == 'X')) {
-    s += 2;
-  }
-  for (*result = 0; *s; ++s) {
-    int n = 0;
-    if (*s >= 'a' && *s <= 'f') {
-      n = *s - 'a' + 10;
-    } else if (*s >= '0' && *s <= '9') {
-      n = *s - '0';
-    }
+  unsigned int val = 0;
+  int x = 0;
+     
+  if(s[x] == '0' && (s[x+1]=='x' || s[x+1]=='X')) x+=2;
+     
+  while(s[x]!='\0')
+    {
 
-    *result *= 16;
-    *result +=  n;
-  }
-  return 0;
+      if(s[x] >= '0' && s[x] <='9')
+	{
+          val = val * 16 + s[x] - '0';
+	}
+      else if(s[x]>='A' && s[x] <='F')
+	{
+          val = val * 16 + s[x] - 'A' + 10;
+	}
+      else if(s[x]>='a' && s[x] <='f')
+	{
+          val = val * 16 + s[x] - 'a' + 10;
+	}
+      else return 0;
+        
+      x++;
+    }
+  return val;
 }
 
 
