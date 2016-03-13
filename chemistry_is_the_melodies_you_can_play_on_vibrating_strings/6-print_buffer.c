@@ -1,3 +1,4 @@
+#include<stdio.h>
 int print_char(char);
 void print_string(char *,int);
 void print_hex(int,int);
@@ -6,10 +7,10 @@ unsigned int htoi(char s[]);
 
 void print_buffer(char *b,int size)
 {
-  int i,j,k;
+  int i,j,k,l;
   unsigned int n;
   char s[]="00";  
-  i=0,k=0;
+  i=0,k=0,l=0;
 
   for (i=0;i<size;i=i+10)
     {
@@ -31,8 +32,8 @@ void print_buffer(char *b,int size)
 	  j++;
 	}
       print_char(' ');
-      k=k-10;
-      for(j=0;j<10 && k< size;j++,k++)
+      
+      for(j=0;j<10 && l< size-1;j++,l++)
 	{
 	 get_hex((int)b[i+j],s);	 
 	 n=htoi(s);
