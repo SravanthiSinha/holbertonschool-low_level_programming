@@ -16,6 +16,13 @@ int str_len(char *str)
   return len;
 }
 
+/* The function concat_strings 
+ * concatenates two strings.
+ * It takes a argument (char *,const char *) and
+ * returns an argumenet (char *)
+ */
+
+
 char *concat_strings(char * dest,const char *src)
 {
   int i,n;
