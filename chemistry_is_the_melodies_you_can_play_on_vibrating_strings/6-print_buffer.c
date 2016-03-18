@@ -1,6 +1,5 @@
 #include<stdio.h>
 int print_char(char);
-void print_string(char *,int);
 void print_hex(int,int);
 void get_hex(int, char *s);
 unsigned int htoi(char s[]);
@@ -19,25 +18,25 @@ void print_buffer(char *b,int size)
 
       for(j=0;j<10 && k< size;j++,k++)
 	{
-  	  if(j%2==0)
+	  if(j%2==0)
 	    print_char(' ');
 	  print_hex((int)b[i+j],6  );
 	}      
-      while(j<10)	
+      while(j<10)
 	{
 	  print_char(' ');
 	  print_char(' ');
-  	  if(j%2==0)
+	  if(j%2==0)
 	    print_char(' ');
 	  j++;
 	}
       print_char(' ');
       
-      for(j=0;j<10 && l< size-1;j++,l++)
+      for(j=0;j<10 && l< size;j++,l++)
 	{
-	 get_hex((int)b[i+j],s);	 
-	 n=htoi(s);
-	 n<31?print_char('.'):print_char(n);	  
+	  get_hex((int)b[i+j],s); 
+	  n=htoi(s);
+	  n<31?print_char('.'):print_char(n);  
 	}
       print_char('\n');     
     }
@@ -59,7 +58,14 @@ void print_hex(int n,int q)
     }
   s[i]=c[n];
 
-  print_string(s,q);
+  i=0;
+
+  while(*(s+i+q)!='\0')
+    {
+      print_char(*(s+i+q));
+      i++;
+    }
+
 }
 
 void get_hex(int n, char *s)
@@ -80,18 +86,6 @@ void get_hex(int n, char *s)
   s[i]=c[n];
 }
 
-
-void print_string(char *str,int q)
-{
-  int i=0;
-
-  while(*(str+i+q)!='\0')
-    {
-      print_char(*(str+i+q));
-      i++;
-    }
-}
-
 unsigned int htoi(char s[])
 {
   unsigned int val = 0;
@@ -101,26 +95,15 @@ unsigned int htoi(char s[])
      
   while(s[x]!='\0')
     {
-
       if(s[x] >= '0' && s[x] <='9')
-	{
           val = val * 16 + s[x] - '0';
-	}
       else if(s[x]>='A' && s[x] <='F')
-	{
           val = val * 16 + s[x] - 'A' + 10;
-	}
       else if(s[x]>='a' && s[x] <='f')
-	{
           val = val * 16 + s[x] - 'a' + 10;
-	}
       else return 0;
-        
       x++;
     }
   return val;
 }
-
-
-                                                                                                                                                                                                                                                                                                                                        
 
