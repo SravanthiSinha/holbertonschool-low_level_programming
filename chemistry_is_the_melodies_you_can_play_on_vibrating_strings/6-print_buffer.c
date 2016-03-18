@@ -4,6 +4,19 @@ void print_hex(int,int);
 void get_hex(int, char *s);
 unsigned int htoi(char s[]);
 
+void print_space(int j)
+{
+      while(j<10)
+	{
+	  print_char(' ');
+	  print_char(' ');
+	  if(j%2==0)
+	    print_char(' ');
+	  j++;
+	}
+      print_char(' ');
+}
+
 void print_buffer(char *b,int size)
 {
   int i,j,k,l;
@@ -22,16 +35,7 @@ void print_buffer(char *b,int size)
 	    print_char(' ');
 	  print_hex((int)b[i+j],6  );
 	}      
-      while(j<10)
-	{
-	  print_char(' ');
-	  print_char(' ');
-	  if(j%2==0)
-	    print_char(' ');
-	  j++;
-	}
-      print_char(' ');
-      
+      print_space(j);
       for(j=0;j<10 && l< size;j++,l++)
 	{
 	  get_hex((int)b[i+j],s); 
@@ -40,6 +44,8 @@ void print_buffer(char *b,int size)
 	}
       print_char('\n');     
     }
+  if(size<0)
+    print_char('\n');
 }
 
 void print_hex(int n,int q)
@@ -65,7 +71,6 @@ void print_hex(int n,int q)
       print_char(*(s+i+q));
       i++;
     }
-
 }
 
 void get_hex(int n, char *s)
