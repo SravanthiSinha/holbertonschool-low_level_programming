@@ -19,20 +19,15 @@ void print_space(int j)
 
 void print_buffer(char *b,int size)
 {
-  int i,j,k,l;
-  unsigned int n;
+  int i=0,j=0,k=0,l=0; unsigned int n;
   char s[]="00";  
-  i=0,k=0,l=0;
-
   for (i=0;i<size;i=i+10)
     {
       print_hex(i,0);
       print_char(':');
-
       for(j=0;j<10 && k< size;j++,k++)
 	{
-	  if(j%2==0)
-	    print_char(' ');
+	  if(j%2==0)print_char(' ');
 	  print_hex((int)b[i+j],6  );
 	}      
       print_space(j);
@@ -44,8 +39,7 @@ void print_buffer(char *b,int size)
 	}
       print_char('\n');     
     }
-  if(size<0)
-    print_char('\n');
+  if(size<0)print_char('\n');
 }
 
 void print_hex(int n,int q)
