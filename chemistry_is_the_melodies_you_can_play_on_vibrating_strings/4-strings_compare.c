@@ -17,6 +17,13 @@ int str_len(const char *str)
   return len;
 }
 
+
+/* The function strings_compare
+ * compares two strings.
+ * It takes a argument (char *,const char *) and
+ * returns an argumenet (int)
+ */
+
 int strings_compare(char *s1, const char *s2)
 {
   int i,n1,n2,t,n;

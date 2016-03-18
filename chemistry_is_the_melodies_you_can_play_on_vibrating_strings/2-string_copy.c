@@ -1,3 +1,9 @@
+/* The function string_copy
+ * copies a string.
+ * It takes a argument (char *,const char *) and
+ * returns an argumenet (char *)
+ */
+
 char *string_copy(char * dest,const char *src)
 {
   int i;

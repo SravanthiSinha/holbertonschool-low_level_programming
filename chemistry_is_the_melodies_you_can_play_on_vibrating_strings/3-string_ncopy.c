@@ -1,3 +1,9 @@
+/* The function string_ncopy
+ * copies a string.
+ * It takes a argument (char *,const char *) and
+ * returns an argumenet (char *)
+ */
+
   char *string_ncopy(char *dest, const char *src, int n)
   {
     int i;
