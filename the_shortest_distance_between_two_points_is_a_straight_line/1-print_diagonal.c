@@ -1,5 +1,12 @@
 int print_char(char);
 
+/* The function print_diagonal
+ * draws a diagonal line 
+ * of length n on the terminal
+ * It takes a argument (int) and
+ * returns nothing (void)
+ */
+
 void print_diagonal(int n)
 {
   int i,j;
