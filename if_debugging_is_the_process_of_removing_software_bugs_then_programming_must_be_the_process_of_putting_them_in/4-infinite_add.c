@@ -55,11 +55,15 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
     {
       for(i = a-1, j = b-1 ; i >= 0 || j >= 0; i--, j--, c++)
 	{
-	 if(j<=i && j>=0)
+	 if(i>=0 && j>=0)
 	   sum = (char) ( (int) n1[i] + (int) n2[j] + carry - 96);
 	 else if(j<0)
 	   {	     
 	   sum = (char) ( (int) n1[i] + carry - 48);
+	   }
+	 else if(i<0)
+	   {	     
+	   sum = (char) ( (int) n2[j] + carry - 48);
 	   }
 	  if(sum >= 10)
 	    {
