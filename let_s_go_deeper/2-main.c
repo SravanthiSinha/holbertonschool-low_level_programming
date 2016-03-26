@@ -15,7 +15,7 @@ int main(void)
   printf("%d\n", r);
   r = square_root(25);
   printf("%d\n", r);
-  r = square_root(-1);
+  r = square_root(5454);
   printf("%d\n", r);
   return (0);
 }
