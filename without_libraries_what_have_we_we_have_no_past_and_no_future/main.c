@@ -1,5 +1,5 @@
 #include<stdio.h>
-int absolute(int);
+#include "holbertonschool.h"
 
 int main(void)
 {
