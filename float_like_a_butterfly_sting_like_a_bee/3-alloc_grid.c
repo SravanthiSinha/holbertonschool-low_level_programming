@@ -15,10 +15,10 @@ int **alloc_grid(int x, int y)
   
   int **array ;
   array = (int **)malloc(x * sizeof(int *));
-  array[0] = (int *)malloc(sizeof(int) * x * y);
  
-  for(i = 0; i < x; i++)
-    array[i] = (*array + y * i);
+  for(i=0;i<y;i++)
+    array[i] = (int *)malloc(sizeof(int) * x * y);
+ 
   if(array == NULL)
       return NULL;
   else
