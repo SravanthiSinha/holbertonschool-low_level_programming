@@ -8,10 +8,10 @@ OBJECTS := $(SOURCES:%.c=%.o)
 $(DIR)/%.o: $(DIR)/%.c
 	gcc -c $(INC) -o $@ $< $(CFLAGS)
 
-all: libholbertonschool.a clean
+all: libholberton.a clean
 
-libholbertonschool.a: $(OBJECTS)
-	ar -rc libholbertonschool.a $(OBJECTS)
+libholberton.a: $(OBJECTS)
+	ar -rc libholberton.a $(OBJECTS)
 
 clean:
 	rm $(OBJECTS)
