@@ -7,10 +7,18 @@ int op_mod(int, int);
 
 int (*get_op_func(char c))(int a, int b){
   int i;
-  int (*op_func[6])(int, int) = {op_add, op_sub, op_mul, op_div, op_mod};
 
-  i = (c == '+')*1+(c == '-')*2+(c == '*')*3+(c == '/')*4+(c == '%')*5 - 1;
-  if (i == -1)
+  char options[5] = { '+', '-', '*','/', '%'};
+
+  int (*op_func[5])(int, int) = {op_add, op_sub, op_mul, op_div, op_mod};
+
+  for(i = 0;i < 5; i++)
+    {
+      if(c == options[i])
+	{
+	  return op_func[i];
+	}
+    }
+
     return NULL;
-  return (op_func[i]);
 }

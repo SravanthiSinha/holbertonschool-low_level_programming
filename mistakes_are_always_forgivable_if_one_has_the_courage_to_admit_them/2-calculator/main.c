@@ -3,9 +3,16 @@
 
 int (*get_op_func(char c))(int, int);
 
-int main(int c, char **v){
-  if (c != 4 || *get_op_func(*v[2]) == (NULL))
+int main(int argc, char **argv){
+  int (*a)(int,int);
+  
+  if (argc != 4 )
     return 1;
-  printf("%d\n", (*get_op_func(*v[2]))(atoi(v[1]), atoi(v[3])));
+  
+  a = get_op_func(*argv[2]);   
+  if( *a == NULL)
+    return 1;
+
+  printf("%d\n", (*a)(atoi(argv[1]), atoi(argv[3])));
   return 0;
 }
