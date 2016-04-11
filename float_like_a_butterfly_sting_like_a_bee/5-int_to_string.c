@@ -41,19 +41,14 @@ int power(int  x,int y)
 char *int_to_string(int x)
 {
   int len = 0,i = 0,j = 0,flag = 0;
-  char *s;
-  long n = x, temp =0;  
+  char *s;  long n = x, temp =0;  
   if ( n < 0 )
     {
       n = n * -1;
       flag = 1;
     }
   len = get_len(n);
-  i = len - 1;
-  if (flag)
-    s = malloc(sizeof(*s) * (len +1));
-  else
-    s = malloc(sizeof(*s) * len);
+  s = flag ? malloc(sizeof( *s ) * (len + 1)): malloc(sizeof( *s ) * len);
   if (s == NULL)
       return (NULL);
   else
@@ -63,13 +58,11 @@ char *int_to_string(int x)
 	  s[j]='-';
 	  j++;
 	}      
-      while(i >= 0)
+      for(i = len -1 ;i >= 0; i--, j++)
 	{
 	  temp = n / power(10,i);
 	  s[j] = temp + 48;
 	  n = n - temp * power(10 , i); 
-	  i--;
-	  j++;
 	  }
     }
   return s; 
