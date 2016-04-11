@@ -1,5 +1,5 @@
 #include<stdlib.h>
-#include<stdio.h>
+
 /* The function get_len
  * returns the length of the input number
  * It takes a argument (unsigned long void) and
@@ -38,47 +38,31 @@ int power(int  x,int y)
  * the number given as a parameter
  *
  */
-
-
 char *int_to_string(int x)
 {
-  int len,i,j;
+  int len = 0,i = 0,j = 0,flag = 0;
   char *s;
-  int flag;  
-  long n, temp;
-
-  n = x;
-  flag = 0;
-  j = 0;
-  temp = 0;
-  
-
+  long n = x, temp =0;  
   if ( n < 0 )
     {
       n = n * -1;
       flag = 1;
     }
-    
   len = get_len(n);
   i = len - 1;
-  
   if (flag)
     s = malloc(sizeof(*s) * (len +1));
   else
     s = malloc(sizeof(*s) * len);
-  
   if (s == NULL)
-    {
       return (NULL);
-    }
   else
     {
       if(flag)
 	{
 	  s[j]='-';
 	  j++;
-	}
-      
+	}      
       while(i >= 0)
 	{
 	  temp = n / power(10,i);

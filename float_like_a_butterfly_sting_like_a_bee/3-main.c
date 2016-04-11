@@ -2,7 +2,22 @@
 #include <stdio.h>
 
 int **alloc_grid(int, int);
-void print_grid(int **, int, int);
+
+void print_grid(int **grid, int x, int y) 
+{
+  int i,j;
+  
+  for(i = 0; i < x; i++)
+    {
+      for(j = 0; j < y; j++)
+	{
+	  printf("%d",grid[i][j]);
+	  if(j < y - 1)
+	    printf(", ");
+	}
+      printf("\n");
+    }  
+}
 
 int main()
 {

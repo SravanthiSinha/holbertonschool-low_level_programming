@@ -1,22 +1,17 @@
 #include <stdlib.h>
-#include <stdio.h>
-
 
 /*
  * A  function that returns a pointer to
  * a newly created 2 dimensional integers grid
  */
-
-
-
 int **alloc_grid(int x, int y)
 {
-  int  __attribute__((unused))i,j;
-  
+  int  __attribute__((unused))i,j;  
   int **array ;
 
   /* Allocate array -first array of rows, then each row */
   array = (int **)malloc(x * sizeof(int *)); 
+
   for(i=0;i<y;i++)
     array[i] = (int *)malloc(sizeof(int) * y);
 
@@ -31,6 +26,7 @@ int **alloc_grid(int x, int y)
    return array;
 }
 
+/*
 void print_grid(int **grid, int x, int y) 
 {
   int i,j;
@@ -45,6 +41,5 @@ void print_grid(int **grid, int x, int y)
 	}
       printf("\n");
     }
-
-  
 }
+*/
