@@ -28,18 +28,13 @@ char *string_concat(char *s1, char *s2)
  
   int len,len2,i,j;
   char *s;
-
   i = 0;
-  j=0;
+  j = 0;
   len = str_len(s1);
-  len2= str_len(s2);  
+  len2 = str_len(s2);  
   s = malloc(sizeof(*s) * (len + len2 + 1) );
-  
-
   if (s == NULL)
-    {
        return ( NULL);
-    }
   else
     {
       while(i < len)
@@ -47,9 +42,6 @@ char *string_concat(char *s1, char *s2)
 	    s[i]= s1[i];
 	    i++;
 	  }
-
-      s[i]=' ';
-      i++;
       while(j < len2)
 	  {
 	    s[i] = s2[j];
@@ -59,5 +51,4 @@ char *string_concat(char *s1, char *s2)
        s[i] = '\0';
     }
   return s; 
-  
 }

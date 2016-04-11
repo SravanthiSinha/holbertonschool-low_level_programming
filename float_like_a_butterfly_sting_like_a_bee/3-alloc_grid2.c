@@ -14,21 +14,21 @@ int **alloc_grid(int x, int y)
   int  __attribute__((unused))i,j;
   
   int **array ;
-
-  /* Allocate array -first array of rows, then each row */
-  array = (int **)malloc(x * sizeof(int *)); 
+  array = (int **)malloc(x * sizeof(int *));
+ 
   for(i=0;i<y;i++)
-    array[i] = (int *)malloc(sizeof(int) * y);
-
-    if(array == NULL)
-      return NULL;
-    else
-     {
+    array[i] = (int *)malloc(sizeof(int) * x * y);
+ 
+  if(array == NULL)
+    return NULL;
+  else
+    {
       for(i = 0; i < x; i++)
 	for(j = 0;j < y ; j++)
-	      array[i][j]=0;
-     }
-   return array;
+	  array[i][j]=0;
+    }
+
+  return array;
 }
 
 void print_grid(int **grid, int x, int y) 

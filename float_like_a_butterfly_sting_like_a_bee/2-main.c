@@ -7,7 +7,7 @@ int main()
 {
   char *concat;
 
-  concat = string_nconcat("Holberton ", "School !!!", 0);
+  concat = string_nconcat("Holberton ", "School !!!", 6);
   printf("%s\n", concat);
   free(concat);
   return (0);
