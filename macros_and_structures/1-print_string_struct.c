@@ -7,6 +7,9 @@ struct String *string_to_struct(char *str);
    has no output arguement*/
 void print_string_struct(struct String *str)
 {
-  printf("%s, %d\n",str->str,str->length);
+  if(str!=NULL)
+    printf("%s, %d\n",str->str,str->length);
+  else 
+    printf("No struct to print");
 }
 

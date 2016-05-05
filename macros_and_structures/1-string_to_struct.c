@@ -1,4 +1,5 @@
-#include<stdlib.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "str_struct.h"
 
 int str_len(char *s)
@@ -12,6 +13,25 @@ int str_len(char *s)
   return i;
 }
 
+/* The function string_copy
+ * copies a string.
+ * It takes a argument (char *,const char *) and
+ * returns an argumenet (char *)
+ */
+
+char *string_copy(char * dest, char *src)
+{
+  int i;
+
+  i=0;
+  while((*(src+i)!='\0'))
+    {
+      *(dest+i)=*(src+i);
+      i++;
+    }
+  *(dest+i)='\0';
+  return dest  ;
+}
 
 /*A function that stores a string 
   and its length in a structure
@@ -26,7 +46,8 @@ struct String *string_to_struct(char *str)
     {
       return (NULL);
     }
-  string->str = str;
+  string_copy(string->str,str);
+  printf("ss%s",string->str);
   string->length = str_len(str);  
   return string;
 }
