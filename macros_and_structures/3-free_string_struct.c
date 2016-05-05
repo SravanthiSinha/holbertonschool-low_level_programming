@@ -3,5 +3,11 @@
 
 void free_string_struct(struct String *str)
 {
-  free(str);
+  char *p;
+  if(str!=NULL)
+    {
+      p=str->str;
+      free(p);
+      free(str);
+    }
 }

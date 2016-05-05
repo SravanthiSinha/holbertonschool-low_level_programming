@@ -1,4 +1,4 @@
-#include<stdlib.h>
+#include <stdlib.h>
 #include "str_struct.h"
 
 int str_len(char *s)
@@ -18,7 +18,7 @@ int str_len(char *s)
  * returns an argumenet (char *)
  */
 
-char *string_copy(char * dest,const char *src)
+char *string_copy(char * dest, char *src)
 {
   int i;
 
@@ -28,7 +28,7 @@ char *string_copy(char * dest,const char *src)
       *(dest+i)=*(src+i);
       i++;
     }
-  dest[i]= '\0';
+  *(dest+i)='\0';
   return dest  ;
 }
 
@@ -39,13 +39,16 @@ struct String *string_to_struct(char *str)
 {
    
   struct String *string;
+  int len;
 
   string = malloc(sizeof(struct String));
   if (string == NULL)
     {
       return (NULL);
     }
-  string->str = string_copy(string->str,str);
-  string->length = str_len(str);  
+  len=str_len(str);
+  string->str = malloc((len + 1)*sizeof(char));
+  string_copy(string->str,str);
+  string->length = len;
   return string;
 }
