@@ -3,23 +3,37 @@
 
 char **string_split(char *);
 
-void print_tab(__attribute__((unused)) char **tab)   
+void print_tab(char **grid)   
 {
+  int i;
   
-
+  while(grid[i] != NULL)
+    {
+      printf("%s\n",grid[i]);
+      i++;
+    }
 }
 
 /*
  * A function that frees a 2 dimensional grid
  */
-void free_tab(__attribute__((unused)) char **grid)
+void free_tab(char **grid)
 {
-
+   int i;
+   
+   i = 0;
+   while(grid[i] != NULL)
+    {
+      free(grid[i]);
+      i++;
+    }
+    free(grid[i]);
+  free(grid);
 }
 
 int main(void)
 {
-  __attribute__((unused)) char **tab;
+  char **tab;
 
   tab = string_split("Holberton School         #cisfun");
   print_tab(tab);

@@ -50,28 +50,31 @@ char **string_split(char *str)
   k = 0; l = 0; m =0;
   n = nwords(str);
   
-  tab =(char **)malloc( n * sizeof(char *));   
+  tab =malloc( (n + 1) * sizeof(char *));   
   if(tab == NULL)  return NULL;
   for ( i = 0 ; i < n ; i ++)
     {
       j = 0; l = 0;
-      while( str[k] != 32)
+      while( str[k] != 32 && str[k]!='\0')
 	{
 	  j++;  k++;
 	}
-      tab[i] = (char *)malloc(sizeof(char) * j);     
-      if(taby == NULL)	return NULL;
+      tab[i] = malloc(sizeof(char) * (j+1));     
+
+      if(tab[i] == NULL) return NULL;
       while(l < j)
 	{
 	  tab[i][l]= str[m];
 	  l++; 	  m++;
 	}      
       tab[i][l]='\0';
-      while (str[k] == 32)
+
+      while ((str[k] == 32 || str[k] == 33) && str[k] !='\0')
 	{
 	  k++;
 	  m++;
 	}
     }
+  tab[i]=NULL;
   return tab;  
 }
