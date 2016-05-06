@@ -30,10 +30,10 @@ int nwords(char *str)
 
   while(str[i] != '\0')
     {
-    if( str[i] >= 33 && str[i + 1] == 32 &&  i <  len)
-      n++;
+      if( str[i] >= 33 && str[i + 1] == 32 &&  i <  len)
+	n++;
 
-    i++;
+      i++;
     }
   if(str[i -1] >= 33 && str[i] == '\0')
     n++;
@@ -51,31 +51,32 @@ char **string_split(char *str)
   k = 0; l = 0; m =0;
   n = nwords(str);
   
-  tab =(char **)malloc( (n+1) * sizeof(char *));   
+  tab =malloc( (n + 1) * sizeof(char *));   
   if(tab == NULL)  return NULL;
   for ( i = 0 ; i < n ; i ++)
     {
       j = 0; l = 0;
-      while( str[k] != 32)
+      while( str[k] != 32 && str[k]!='\0')
 	{
 	  j++;  k++;
 	}
-      tab[i] = (char *)malloc(sizeof(char) * (j+1));     
+      tab[i] = malloc(sizeof(char) * (j+1));     
+
       if(tab[i] == NULL) return NULL;
       while(l < j)
 	{
 	  tab[i][l]= str[m];
-	  l++; 	  m++;
+	  l++;   m++;
 	}      
       tab[i][l]='\0';
-      while (str[k] == 32)
+
+      while ((str[k] == 32 || str[k] == 33) && str[k] !='\0')
 	{
 	  k++;
 	  m++;
 	}
-
     }
-  tab[i] = NULL;
+  tab[i]=NULL;
   return tab;  
 }
 
@@ -117,7 +118,7 @@ struct Param *params_to_struct_array(int ac, char **av)
       param[i].str = av[i];
       len = str_len(av[i]);
       param[i].length = len;
-      param[i].copy = malloc((len+1) * sizeof(char));
+      param[i].copy = malloc((len + 1) * sizeof(char));
       string_copy(param[i].copy, av[i]);
       param[i].tab=string_split(av[i]);
     }
