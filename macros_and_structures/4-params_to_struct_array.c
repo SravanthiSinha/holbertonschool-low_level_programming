@@ -51,7 +51,7 @@ char **string_split(char *str)
   k = 0; l = 0; m =0;
   n = nwords(str);
   
-  tab =(char **)malloc( n * sizeof(char *));   
+  tab =(char **)malloc( (n+1) * sizeof(char *));   
   if(tab == NULL)  return NULL;
   for ( i = 0 ; i < n ; i ++)
     {
@@ -60,8 +60,8 @@ char **string_split(char *str)
 	{
 	  j++;  k++;
 	}
-      tab[i] = (char *)malloc(sizeof(char) * j);     
-      if(tab == NULL)	return NULL;
+      tab[i] = (char *)malloc(sizeof(char) * (j+1));     
+      if(tab[i] == NULL) return NULL;
       while(l < j)
 	{
 	  tab[i][l]= str[m];
@@ -73,7 +73,9 @@ char **string_split(char *str)
 	  k++;
 	  m++;
 	}
+
     }
+  tab[i] = NULL;
   return tab;  
 }
 
@@ -84,16 +86,17 @@ char **string_split(char *str)
  * returns an argumenet (char *)
  */
 
-char *string_copy(char * dest,const char *src)
+char *string_copy(char * dest,char *src)
 {
   int i;
 
   i=0;
-  while((*(src+i)!='\0'))
+  while((*(src+i) != '\0'))
     {
-      *(dest+i)=*(src+i);
+      *(dest+i) = *(src+i);
       i++;
     }
+  *(dest+i) = '\0';
   return dest  ;
 }
 
@@ -105,14 +108,17 @@ struct Param *params_to_struct_array(int ac, char **av)
   struct Param *param;
 
   int i;
+  int len;
  
   param =(struct Param *) malloc((ac + 1) * sizeof(struct Param));
 
   for( i = 0 ; i < ac; i++)
     {
       param[i].str = av[i];
-      param[i].length =  str_len(av[i]);
-      param[i].copy = string_copy(param[i].copy, av[i]);
+      len = str_len(av[i]);
+      param[i].length = len;
+      param[i].copy = malloc((len+1) * sizeof(char));
+      string_copy(param[i].copy, av[i]);
       param[i].tab=string_split(av[i]);
     }
       param[i].str = NULL;
