@@ -7,7 +7,7 @@ int main(void)
 {
   struct String *str;
 
-  str = string_to_struct("Holberton");
+  str = string_to_struct("Holbertons");
   print_string_struct(str);
   str = string_to_struct("C is fun");
   print_string_struct(str);

@@ -1,59 +1,32 @@
 #include "str_struct.h"
-#include <stdio.h>
+#include<stdlib.h>
+
 int print_char(char c);
-
-int get_len(unsigned long n)
-{
-  int l;
-
-  l = 1;
-  while(n / 10 )
-    {
-      l++;
-      n = n / 10;
-    }
-  return l;
-}
-
-unsigned long power(unsigned long x, int y)
-{
-  unsigned long result =1;
-  while(y--)
-    result = result * x;
-  return result;
-}
 
 void print_number(int n)
 {
-  int len;
-  int p;
-  unsigned long no;
-  unsigned long q;
-
-  if (n == 0)
-    print_char('0');
-  else if(n < 0)
-    {
-      no = (unsigned long) n * -1;
-      print_char('-');
-    }  
-  else
-    {
-      no = (unsigned long)n;
-    }  
-  if(no > 0)
-    {    
-      len=get_len(no);
-      p = len - 1;
-      while(p <= len && no!=0 )
-	{
-	  q = no/power(10, p);
-	  print_char(q + 48 );    
-	  no = no - q * power(10, p);
-	  p--;
-	  len=get_len(no);
-	} 
+  int count,i,temp,j,x;
+  temp=0; /*to store prev result*/
+  i=n;
+  for (count=0;i!=0;count++) /*count digits*/
+    i=i/10;
+  if (n<0)    /*if neg print '-'*/
+    print_char('-');
+  do{   /*do loop to work for 0*/
+    i=n;
+    x=count;
+    for(;x>1;x--){  /*start from beginning*/
+      i=i/10;
     }
+    j=i-(temp*10);  /*subtract prev value*/
+    temp=i;        /*save prev value*/
+    if (j<0){  /*if neg digit make pos*/
+      j=j*(-1);
+    }
+    print_char(j+48); /*+48 for ascii*/
+    count--;
+  }
+  while(count>0);
 }
 
 void print_string(char *s)
@@ -67,7 +40,6 @@ void print_string(char *s)
       i++;
     }  
 }
-
 
 /* prints the conenets of sturcture String
    it takes struct String
