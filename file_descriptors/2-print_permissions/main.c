@@ -1,6 +1,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
-
+#include <unistd.h>
 int print_char(char);
 
 int main(int argc, char *argv[])
@@ -13,13 +13,14 @@ if (argc != 2)
   }
  else 
  {
-   if (stat(argv[1], &fileStat) == -1) 
+   if (lstat(argv[1], &fileStat) == -1) 
      {
        return (1);
      }
    else
-     {
-       print_char( (S_ISDIR(fileStat.st_mode)) ? 'd' : '-');
+     {  
+       
+       print_char( (S_ISLNK(fileStat.st_mode)) ? 'l' :(S_ISDIR(fileStat.st_mode)) ? 'd' : '-');
        print_char( (fileStat.st_mode & S_IRUSR) ? 'r' : '-');
        print_char( (fileStat.st_mode & S_IWUSR) ? 'w' : '-');
        print_char( (fileStat.st_mode & S_IXUSR) ? 'x' : '-');
