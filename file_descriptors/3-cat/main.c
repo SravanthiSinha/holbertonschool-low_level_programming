@@ -18,7 +18,7 @@ void print_string(char *str)
 {
   int i=0;
   
-  while(*(str+i)!='\0')
+ while(*(str+i)!='\0')
     {
       print_char(*(str+i));
       i++;
@@ -35,16 +35,15 @@ int main(int argc, char **argv)
   char *cat = "cat: ";
   char *dir = ": Is a directory";
   char *ndir=" No such file or directory";
-  char c;
 
   if(argc == 1)
     {
-      while((ret_in = read(0,&c,1)) >= 0)
+      while((ret_in = read(0,&buffer,BUFFER_SIZE)) > 0)
 	{
-	  if((ssize_t)ret_in == 0) 
-	    return (0);
+	  ret_out = write(1, &buffer,(ssize_t)ret_in);	  
 	}
-	
+      	  if((ssize_t)ret_in == 0) 
+	    return (0);
     }
   else if(argc >= 2)
     {
