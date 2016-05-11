@@ -1,6 +1,10 @@
+CC= gcc
 CFLAGS := -Wall -pedantic -Werror -Wextra
 FILES := main.c
-all: $(FILES)
-	gcc $(CFLAGS) $(FILES) -o 0-print_content
+EXE := 0-print_content
+all: $(EXE)
+
+$(EXE): $(FILES)
+	$(CC) $(CFLAGS) $^ -o $@
 clean:
-	rm 0-print_content
+	rm -f $(EXE)

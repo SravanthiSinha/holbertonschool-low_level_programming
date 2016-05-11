@@ -1,6 +1,10 @@
+CC= gcc
 CFLAGS := -Wall -pedantic -Werror -Wextra
 FILES := main.c print_char.c
-all: $(FILES)
-	gcc $(CFLAGS) $(FILES) -o 2-print_permissions
+EXE := 2-print_permissions
+all: $(EXE)
+
+$(EXE): $(FILES)
+	$(CC) $(CFLAGS) $^ -o $@
 clean:
-	rm 2-print_permissions
+	rm -f $(EXE)
