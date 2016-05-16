@@ -41,6 +41,7 @@ NUL-terminated, strlen counts the length of the next argument,
 not the entire argument list. */
     next_arg += str_len(next_arg) + 1;
   }
+  
   return(0);
 }
 
