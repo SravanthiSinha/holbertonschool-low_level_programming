@@ -1,9 +1,65 @@
 #include <stdlib.h>
 #include <unistd.h>
+#include "utils.h"
+typedef int bool;
+#define true 1
+#define false 0
 
-char *string_concat(char * dest,char *src);
-int str_len(const char *s);
-int str_ncomp( char *s1, char*s2, int k);
+void swap(char *a,char *b)
+{
+  char c;
+
+  c = *a;
+  *a = *b;
+  *b = c;
+}
+void reverse(char str[], int length)
+{
+  int start = 0;
+  int end = length -1;
+  while (start < end)
+    {
+      swap(&(str[start]), &(str[end]));
+      start++;
+      end--;
+    }
+}
+ 
+char* int_str(int num, char* str)
+{
+  int i = 0;
+  bool isNegative = false;
+
+  /* Handle 0 explicitely, otherwise empty string is printed for 0 */
+  if (num == 0)
+    {
+      str[i++] = '0';
+      str[i] = '\0';
+      return str;
+    }
+ 
+
+  if (num < 0)
+    {
+      isNegative = true;
+      num = -num;
+    }
+ 
+  while (num != 0)
+    {
+      int rem = num % 10;
+      str[i++] = (rem > 9)? (rem-10) + 'a' : rem + '0';
+      num = num/10;
+    }
+ 
+  if (isNegative)
+    str[i++] = '-';
+ 
+  str[i] = '\0'; 
+  reverse(str, i);
+ 
+  return str;
+}
 
 /*
  *  a function that concatenates two strings.

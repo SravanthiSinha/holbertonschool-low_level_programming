@@ -1,18 +1,23 @@
-CC= gcc
+DIR := utils
+CC :=gcc
+INC := -Iinc
 CFLAGS := -Wall -pedantic -Werror -Wextra
-Utils := ./utils/*.c
-UtilsOBJ := ./utils/*.o
-FILES := main.c
+FILES := printer.c strings.c
+FILESMAIN :=main.c
+SOURCES := $(foreach file,$(FILES),$(patsubst %,$(DIR)/%,$(file)))
+OBJECTS := $(SOURCES:%.c=%.o)
 EXE := simpleshell
-UtilsLib := ./utils/utils.a
-libshell :=./libshell/*.a
-all: $(EXE)
-	chmod +x $(EXE)
-$(EXE): $(FILES)
+UtilsLib := utils/utils.a
+libshell := libshell/*.a
+
+$(DIR)/%.o: $(DIR)/%.c
+	$(CC) -c $(INC) -o $@ $< $(CFLAGS)
+all: clean $(EXE)
+
+$(EXE): $(FILESMAIN) $(UtilsLib) 
 	$(CC) $(CFLAGS) $^ -o $@ $(libshell) $(UtilsLib) 
-$(UtilsLib) : $(UtilsOBJ)	
-	ar -rc $(UtilsLib) $(UtilsOBJ)
-$(UtilsOBJ) : $(Utils)
-	$(CC) $(CFLAGS) $^ -o $@
+
+$(UtilsLib): $(OBJECTS)	
+	ar -rc $(UtilsLib) $(OBJECTS)
 clean:
-	rm -f $(EXE)
+	rm -f $(EXE) $(OBJECTS)

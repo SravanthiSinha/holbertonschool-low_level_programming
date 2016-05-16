@@ -10,13 +10,14 @@
 int exe_exists(char *s);
 char *getcommand(char **env, char *cmd);
 int exe_fork(char **env, char **argv);
-int handlespl(char **args, int status);
+int handlespl(char **args, int status,int pid);
+void print_env(int pid);
 
 int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, char **env)
 {
   char *command;
   char **args;
-  pid_t pid;
+  pid_t cpid;
   int status;
   
   status =0;
@@ -28,17 +29,17 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
        command = read_line(0);
        /*split the user input to find the command */
        args = string_split(command, ' ');
-
-       if (handlespl(args,status))
-	 continue;
        
+       if (handlespl(args,status,getpid()))
+	 continue;
+
        /* create a process for the command to be executed*/
-       if((pid = fork()) == -1)
+       if((cpid = fork()) == -1)
 	 {
 	   perror("fork error");
 	   exit(EXIT_FAILURE);
 	 }
-       else if(pid  == 0)
+       else if(cpid  == 0)
 	 {	
 	   /*return to the immediate parent once the command is executed*/
 	   return exe_fork(env, args);
@@ -51,11 +52,28 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
   return (0);
 }
 
-int handlespl(__attribute__((unused)) char **args, __attribute__((unused)) int status)
+void print_env(int pid)
+{
+  char *path;
+  char str[100];
+  
+  int_str(pid,str);
+  path = string_concat("/proc/",str);
+  path = string_concat(path,"/environ");
+  print_proccontent(path);
+}
+int handlespl( char **args, __attribute__((unused)) int status,int pid)
 {
   /*Terminates your program*/
   if(str_ncomp(args[0], "exit", str_len("exit")) == 0)
-    exit(0);	        
+    {
+      exit(0);	        
+    }
+  if(str_ncomp(args[0], "env", str_len("env")) == 0)
+    {
+      print_env(pid);
+      return 1;
+    }
   else if((str_ncomp(args[0],"echo",str_len("echo")) == 0) && (str_ncomp(args[1],"$?",str_len("$?")) == 0))
     {
       print_number(status);
