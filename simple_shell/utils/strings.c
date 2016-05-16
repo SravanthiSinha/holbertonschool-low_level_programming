@@ -154,21 +154,22 @@ char *string_dup(char *str)
   char *s;
 
   i = 0;
-  len = str_len(str);
-  s = malloc(sizeof(*s) * len);
   
-  if (s == NULL)
+  if (str == NULL)
     {
       return (NULL);
     }
   else
     {
+      len = str_len(str);
+      s = malloc(sizeof(*s) * (len + 1));
+
       while(i<len)
 	{
 	  s[i]=str[i];
 	  i++;
 	}
     }
-  return s; 
-  
+  s[i]='\0';
+  return s;   
 }

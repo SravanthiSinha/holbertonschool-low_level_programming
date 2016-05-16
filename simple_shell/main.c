@@ -20,7 +20,9 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
   char **args;
   pid_t cpid;
   int status;
-  
+  int exe_stat;
+
+  exe_stat =0;
   status =0;
   while(1)
     {
@@ -28,6 +30,7 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
        print_prompt("shellisfun$:");
        /*wait for you to write a command line */
        command = read_line(0);
+
        /*split the user input to find the command */
        if(str_len(command)>0)
 	 {
@@ -44,7 +47,9 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
 	     }
 	   else if(cpid  == 0)
 	     {	
-	       return exe_fork(env, args);
+	       exe_stat = exe_fork(env, args);
+	       free_split(args);
+	       return(exe_stat);
 	     }
 	   else
 	     {
@@ -110,13 +115,14 @@ int exe_fork(char **env, char **args)
   char *path;
   int exe_status;
 
-  exe_status =0;
-  path ='\0';
+  exe_status = -1;
+  path = '\0';
   if(args[0][0] != '/')
     path = getcommand(env,args[0]);
   else
-    path = args[0];
+    path = string_dup(args[0]);
   exe_status = execve(path,args,env);
+      
   if(exe_status == -1)
     {
       if(str_ncomp(args[0],"$?",str_len("$?")) != 0)
@@ -125,12 +131,11 @@ int exe_fork(char **env, char **args)
 	  print_prompt(": command not found\n");        
 	}
     }
-  else
+  /*  else
     {
       free(path);
-    }
+      }*/
 
-  free_split(args);
   return (exe_status);
 }
  
@@ -142,7 +147,7 @@ char *getcommand(char **env , char *cmd)
   int i;
   char *pathslash;
 
-  path = '\0';
+  path = string_dup('\0');
   /*grab the path variable from env*/
   for ( i = 0 ; env[i]!= NULL;++i)
     {
@@ -167,7 +172,7 @@ char *getcommand(char **env , char *cmd)
 	    free_split(paths);
 	    return path;
 	  }
-	path = '\0';	
+	path = string_dup('\0');	
       }	
     free_split(paths);
     return path;
