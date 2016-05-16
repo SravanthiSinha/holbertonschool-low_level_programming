@@ -7,7 +7,7 @@ EXE := simpleshell
 UtilsLib := ./utils/utils.a
 libshell :=./libshell/*.a
 all: $(EXE)
-
+	chmod +x $(EXE)
 $(EXE): $(FILES)
 	$(CC) $(CFLAGS) $^ -o $@ $(libshell) $(UtilsLib) 
 $(UtilsLib) : $(UtilsOBJ)	
