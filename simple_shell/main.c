@@ -29,30 +29,30 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
        /*wait for you to write a command line */
        command = read_line(0);
        /*split the user input to find the command */
-       args = string_split(command, ' ');
-       free(command);
-       if (handlespl(args,status,getpid()))
-	   continue;
-
-
-       /* create a process for the command to be executed*/
-       if((cpid = fork()) == -1)
+       if(str_len(command)>0)
 	 {
-	   perror("fork error");
-	   exit(EXIT_FAILURE);
-	 }
-       else if(cpid  == 0)
-	 {	
-	   /*return to the immediate parent once the command is executed*/
-	   return exe_fork(env, args);
-	 }
-       else
-	 {
-	   wait(&status);
-	   free_split(args);
+	   args = string_split(command, ' ');
+	   free(command);
+	   if (handlespl(args,status,getpid()))
+	     {
+	       continue;
+	     }
+	   if((cpid = fork()) == -1)
+	     {
+	       perror("fork error");
+	       exit(EXIT_FAILURE);
+	     }
+	   else if(cpid  == 0)
+	     {	
+	       return exe_fork(env, args);
+	     }
+	   else
+	     {
+	       wait(&status);
+	       free_split(args);
+	     }
 	 }
     }
-
   return (status);
 }
 
@@ -61,6 +61,7 @@ void print_env(int pid)
   char *path;
   char str[100];
   char *pathproc;
+
   int_str(pid,str);
   pathproc = string_concat("/proc/",str);
   path = string_concat(pathproc,"/environ");
@@ -116,7 +117,6 @@ int exe_fork(char **env, char **args)
   else
     path = args[0];
   exe_status = execve(path,args,env);
-  free(path);
   if(exe_status == -1)
     {
       if(str_ncomp(args[0],"$?",str_len("$?")) != 0)
@@ -124,6 +124,10 @@ int exe_fork(char **env, char **args)
 	  print_prompt(args[0]);
 	  print_prompt(": command not found\n");        
 	}
+    }
+  else
+    {
+      free(path);
     }
 
   free_split(args);
@@ -145,9 +149,10 @@ char *getcommand(char **env , char *cmd)
       if(str_ncomp(env[i], "PATH=", str_len("PATH=")) == 0)
 	{
 	  paths = string_split(env[i],'=');
-	  path = paths[1];
+	  path = string_dup(paths[1]);
 	  free_split(paths);
 	  paths = string_split(path, ':');
+	  free(path);
 	  break;
 	}	  
     }
@@ -156,15 +161,14 @@ char *getcommand(char **env , char *cmd)
       {
 	pathslash = string_concat(paths[i],"/");
 	path = string_concat(pathslash,cmd);
+	free(pathslash);
 	if(exe_exists(path))
 	  {
 	    free_split(paths);
-	    free(pathslash);
 	    return path;
 	  }
-	path = '\0';
+	path = '\0';	
       }	
-    free(pathslash);
     free_split(paths);
     return path;
 }

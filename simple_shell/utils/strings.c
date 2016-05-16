@@ -141,3 +141,34 @@ int str_ncomp(char *s1, char *s2, int k)
   return (t);
 
 }
+/*
+ * function that returns a pointer to a newly allocated 
+ * space in memory, which contains a copy of the 
+ * string given as a parameter.
+ */
+
+char *string_dup(char *str)
+{
+ 
+  int len,i;
+  char *s;
+
+  i = 0;
+  len = str_len(str);
+  s = malloc(sizeof(*s) * len);
+  
+  if (s == NULL)
+    {
+      return (NULL);
+    }
+  else
+    {
+      while(i<len)
+	{
+	  s[i]=str[i];
+	  i++;
+	}
+    }
+  return s; 
+  
+}

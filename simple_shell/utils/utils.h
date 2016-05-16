@@ -9,3 +9,4 @@ void print_prompt(char *s);
 void print_number(int);
 int print_char(char);
 int print_proccontent(char *path);
+char *string_dup(char *str);
