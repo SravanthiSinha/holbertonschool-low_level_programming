@@ -49,7 +49,7 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
 	   wait(&status);
 	 }
     }
-  return (0);
+  return (status);
 }
 
 void print_env(int pid)
@@ -67,7 +67,7 @@ int handlespl( char **args, __attribute__((unused)) int status,int pid)
   /*Terminates your program*/
   if(str_ncomp(args[0], "exit", str_len("exit")) == 0)
     {
-      exit(0);	        
+      exit(status);	        
     }
   if(str_ncomp(args[0], "env", str_len("env")) == 0)
     {
