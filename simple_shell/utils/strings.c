@@ -114,6 +114,7 @@ int str_len(const char *s)
   return (i);  
 }
 
+
 int str_ncomp(char *s1, char *s2, int k)
 {
   int i,n1,n2,t,n;

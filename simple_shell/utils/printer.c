@@ -5,6 +5,7 @@
 #include "utils.h"
 #include "../libshell/libshell.h"
 #include <stdio.h>
+
 void print_prompt(char *s);
 void print_number(int);
 int print_char(char);
@@ -13,20 +14,33 @@ int print_proccontent(char *path);
 int print_proccontent(char *path)
 {
   int fd;
-  char buffer[BUFFER_SIZE];
-  int ret_in,ret_out;
+  char arg_list[10024];
+  size_t length;
+  char* next_arg;
 
-  print_prompt(path);
   fd = open(path,O_RDONLY);
 
-  while( (ret_in = read(fd, &buffer, BUFFER_SIZE)) >0)
-    {
-      ret_out = write(1, &buffer,(ssize_t)ret_in);
-      if(ret_out != ret_in)
-	return (1); 
-    }
-  
-  close(fd);
+  /* Read the contents of the file. */
+  fd = open (path, O_RDONLY);
+  length = read (fd, arg_list, sizeof (arg_list));
+
+  close (fd);
+
+
+  /* read does not NUL-terminate the buffer, so do it here. */
+  arg_list[length] = '\0';
+  /* Loop over arguments. Arguments are separated by NULs. */
+  next_arg = arg_list;
+  while (next_arg < (arg_list + length)) {
+    /* Print the argument. Each is NUL-terminated, so just treat it
+       like an ordinary string. */
+    print_prompt (next_arg);
+    print_prompt("\n");
+    /* Advance to the next argument. Since each argument is
+NUL-terminated, strlen counts the length of the next argument,
+not the entire argument list. */
+    next_arg += str_len(next_arg) + 1;
+  }
   return(0);
 }
 
