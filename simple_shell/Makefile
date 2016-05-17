@@ -2,7 +2,7 @@ DIR := utils
 CC :=gcc
 INC := -Iinc
 CFLAGS := -Wall -pedantic -Werror -Wextra
-FILES := printer.c strings.c int_str.c swap.c print_env.c
+FILES := printer.c strings.c int_str.c swap.c print_env.c free_arraystring.c
 FILESMAIN := main.c
 SOURCES := $(foreach file,$(FILES),$(patsubst %,$(DIR)/%,$(file)))
 OBJECTS := $(SOURCES:%.c=%.o)
@@ -12,7 +12,7 @@ libshell := libshell/*.a
 
 $(DIR)/%.o: $(DIR)/%.c
 	$(CC) -c $(INC) -o $@ $< $(CFLAGS)
-all: clean $(EXE)
+all:  $(EXE)
 
 $(EXE): $(FILESMAIN) $(UtilsLib) 
 	$(CC) $(CFLAGS) $^ -o $@ $(libshell) $(UtilsLib) 

@@ -14,3 +14,4 @@ int print_char(char);
 int print_proccontent(char *path);
 char *string_dup(char *str);
 void print_env(int pid);
+void free_split(char **grid);

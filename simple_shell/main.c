@@ -11,7 +11,6 @@ int exe_exists(char *s);
 char *getcommand(char **env, char *cmd);
 int exe_fork(char **env, char **argv);
 int handlespl(char **args, int status,int pid);
-void free_split(char **grid);
   
 int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, char **env)
 {
@@ -173,19 +172,3 @@ int exe_exists(char *s)
     return(1);
 }
 
-/*
- * A function that frees a 2 dimensional grid
- */
-void free_split(char **grid)
-{
-  int i;
-   
-  i = 0;
-  while(grid[i] != NULL)
-    {
-      free(grid[i]);
-      i++;
-    }
-  free(grid[i]);
-  free(grid);
-}
