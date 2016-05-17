@@ -1,16 +1,9 @@
-#include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
 #include "utils.h"
 #include "../libshell/libshell.h"
-#include <stdio.h>
-
-void print_prompt(char *s);
-void print_number(int);
-int print_char(char);
-int print_proccontent(char *path);
 
 int print_proccontent(char *path)
+/* prints the conents of process environ of a particular id*/
 {
 	int fd;
 	char arg_list[10024];
@@ -39,18 +32,21 @@ int print_proccontent(char *path)
 }
 
 void print_number(int n)
+/* function to write an int to the dispaly*/
 {
-	if ( n > 10 )
+	if (n > 10)
 		print_number(n /10);
 	print_char(n % 10 +48);
 }
 
 int print_char(char c)
+/* function to write a character to the dispaly*/
 {
-	return  write(1,&c,1);
+	return write(1,&c,1);
 }
 
 void print_prompt(char *s)
+/*function to print a string to the display*/
 {
 	write(1,s,str_len(s));
 }

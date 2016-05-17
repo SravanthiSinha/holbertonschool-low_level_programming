@@ -1,13 +1,11 @@
 #include <stdlib.h>
-/*
-* A function that frees a 2 dimensional grid
-*/
+
 void free_split(char **grid)
+/*A function that frees an array of strings */
 {
 	int i;
 	i = 0;
-	while(grid[i] != NULL)
-	{
+	while(grid[i] != NULL){
 		free(grid[i]);
 		i++;
 	}

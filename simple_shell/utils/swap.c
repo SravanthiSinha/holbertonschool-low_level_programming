@@ -1,6 +1,5 @@
-/* fucntion to swap the charcters */
-
 void swap(char *a,char *b)
+/* function to swap the charcters */
 {
 	char c;
 	c = *a;

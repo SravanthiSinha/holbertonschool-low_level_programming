@@ -1,7 +1,7 @@
 #include "utils.h"
-#include <stdlib.h>
 
 void print_env(int pid)
+/*fcuntion to fetch the path of the process pid and print the env*/
 {
 	char *path;
 	char str[100];
