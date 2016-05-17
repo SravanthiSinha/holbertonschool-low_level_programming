@@ -2,8 +2,8 @@ DIR := utils
 CC :=gcc
 INC := -Iinc
 CFLAGS := -Wall -pedantic -Werror -Wextra
-FILES := printer.c strings.c
-FILESMAIN :=main.c
+FILES := printer.c strings.c int_str.c swap.c print_env.c
+FILESMAIN := main.c
 SOURCES := $(foreach file,$(FILES),$(patsubst %,$(DIR)/%,$(file)))
 OBJECTS := $(SOURCES:%.c=%.o)
 EXE := simpleshell

@@ -11,7 +11,6 @@ int exe_exists(char *s);
 char *getcommand(char **env, char *cmd);
 int exe_fork(char **env, char **argv);
 int handlespl(char **args, int status,int pid);
-void print_env(int pid);
 void free_split(char **grid);
   
 int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, char **env)
@@ -20,9 +19,9 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
   char **args;
   pid_t cpid;
   int status;
-  int exe_stat;
-
-  exe_stat =0;
+  int exe_status;
+  
+  exe_status = 0;
   status =0;
   while(1)
     {
@@ -37,43 +36,29 @@ int main(__attribute__((unused))int argc, __attribute__((unused))char **argv, ch
 	   args = string_split(command, ' ');
 	   free(command);
 	   if (handlespl(args,status,getpid()))
-	     {
-	       continue;
-	     }
+	     continue;
 	   if((cpid = fork()) == -1)
 	     {
 	       perror("fork error");
 	       exit(EXIT_FAILURE);
 	     }
 	   else if(cpid  == 0)
-	     {	
-	       exe_stat = exe_fork(env, args);
+	     {
+	       exe_status = exe_fork(env, args);
 	       free_split(args);
-	       return(exe_stat);
+
+	       return exe_status;
 	     }
 	   else
 	     {
 	       wait(&status);
-	       free_split(args);
 	     }
+ 	   free_split(args);
 	 }
     }
   return (status);
 }
 
-void print_env(int pid)
-{
-  char *path;
-  char str[100];
-  char *pathproc;
-
-  int_str(pid,str);
-  pathproc = string_concat("/proc/",str);
-  path = string_concat(pathproc,"/environ");
-  print_proccontent(path);
-  free(pathproc);
-  free(path);
-}
 int handlespl( char **args, __attribute__((unused)) int status,int pid)
 {
   /*Terminates your program*/
@@ -116,13 +101,16 @@ int exe_fork(char **env, char **args)
   int exe_status;
 
   exe_status = -1;
-  path = '\0';
+
   if(args[0][0] != '/')
     path = getcommand(env,args[0]);
   else
     path = string_dup(args[0]);
-  exe_status = execve(path,args,env);
-      
+
+  if(path!='\0')
+    {
+     exe_status = execve(path,args,env);     
+    }
   if(exe_status == -1)
     {
       if(str_ncomp(args[0],"$?",str_len("$?")) != 0)
@@ -131,11 +119,6 @@ int exe_fork(char **env, char **args)
 	  print_prompt(": command not found\n");        
 	}
     }
-  /*  else
-    {
-      free(path);
-      }*/
-
   return (exe_status);
 }
  
@@ -147,7 +130,6 @@ char *getcommand(char **env , char *cmd)
   int i;
   char *pathslash;
 
-  path = string_dup('\0');
   /*grab the path variable from env*/
   for ( i = 0 ; env[i]!= NULL;++i)
     {
@@ -172,10 +154,10 @@ char *getcommand(char **env , char *cmd)
 	    free_split(paths);
 	    return path;
 	  }
-	path = string_dup('\0');	
+	free(path);
       }	
     free_split(paths);
-    return path;
+    return '\0';
 }
 
 /* check the existence of the exectuable */
