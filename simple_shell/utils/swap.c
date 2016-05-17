@@ -2,9 +2,8 @@
 
 void swap(char *a,char *b)
 {
-  char c;
-
-  c = *a;
-  *a = *b;
-  *b = c;
+	char c;
+	c = *a;
+	*a = *b;
+	*b = c;
 }
