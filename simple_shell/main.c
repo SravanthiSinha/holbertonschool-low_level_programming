@@ -6,7 +6,7 @@ char *getcommand(char **env, char *cmd);
 int exe_fork(char **env, char **argv);
 int handlebuiltins(char **args, int status,int pid);
 
-int main(int argc, __attribute__((unused))char **argv, char **env)
+int main(int c,__attribute__((unused))char **v, char **env)
 /* Launches shell */
 {
 	char *command;
@@ -14,10 +14,9 @@ int main(int argc, __attribute__((unused))char **argv, char **env)
 	pid_t cpid;
 	int status;
 	int exe_status;
-
 	exe_status = 0;
 	status = 0;
-	(void)(argc);
+	(void)(c);
 	while(1){
 		print_prompt("shellisfun$:");
 		command = read_line(0);
@@ -69,12 +68,12 @@ int handlebuiltins( char **args, __attribute__((unused)) int status,int pid)
 	return 0;
 }
 
+int exe_fork(char **env, char **args)
 /* execute the executables(those that can be
  * found in the directories listed in the PATH environment variable)
  * If an executable cannot be found,
  * Display an error message and display the prompt again
  */
-int exe_fork(char **env, char **args)
 {
 	char *path;
 	int exe_status;
