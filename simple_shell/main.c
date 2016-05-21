@@ -20,6 +20,8 @@ int main(int c,__attribute__((unused))char **v, char **env)
 	while(1){
 		print_prompt("shellisfun$:");
 		command = read_line(0);
+		if(command =='\0')
+		  exit(0);
 		if(str_len(command) > 0){
 			args = string_split(command,' ');
 			free(command);
