@@ -35,6 +35,8 @@ int printf(const char *format, ...)
 	    p += print_string(va_arg(ap,char *));
 	  else if(format[i+1] == 'p')
 	    p += print_pointeraddress(va_arg(ap,int *));
+	  else if(format[i+1] == 'b')
+	    p += print_unsigned_binary(va_arg(ap,unsigned int));
 	  else if(format[i+1] == '%')
 	    p += print_character('%');
 	  else 

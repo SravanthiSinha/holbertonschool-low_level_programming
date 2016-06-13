@@ -6,10 +6,12 @@ typedef int bool;
 #define false 0
 
 void print_oct(unsigned int n);
+void print_bin(unsigned int n);
 char* int_str(int num, char* str);
 int print_signed_decimal_int(signed int);
 int print_unsigned_decimal_int(unsigned int);
 int print_unsigned_octal(unsigned int);
+int print_unsigned_binary(unsigned int);
 int print_unsigned_hexdecimal_integer(unsigned int);
 int print_unsigned_hexdecimal_integer_U(unsigned int);
 int print_character(char);

@@ -13,7 +13,7 @@ int main(void)
   addr = &len;
   printf("previous length{%d}\n", len);
   printf("UNSIGNED INTEGER{%u}\n", ui);
-  printf("UNSIGNED INTEGER{%o}\n", INT_MIN);
+  printf("UNSIGNED INTEGER{%u}\n", INT_MIN);
   printf("ADDRESS{%p}\n", addr);
   printf("HEXADECIMAL{%X}\n", 94111);
   printf("UNKNOWN SPECIFIER{%Q}\n", len);

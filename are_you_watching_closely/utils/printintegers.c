@@ -37,6 +37,20 @@ int print_unsigned_octal(unsigned int n)
   return i;
 }
 
+int print_unsigned_binary(unsigned int n)
+
+{
+  int i ;
+  
+  i = 0;
+  print_bin(n);
+  while(n != 0) {
+    n = n/2;
+    i++;
+  }
+  return i;
+}
+
 int print_unsigned_hexdecimal_integer(unsigned int n)
 
 {

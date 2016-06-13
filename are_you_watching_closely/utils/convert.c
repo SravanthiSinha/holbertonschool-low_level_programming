@@ -94,3 +94,11 @@ void print_oct(unsigned int n)
     print_number(n % 8);
   }
 }
+
+void print_bin(unsigned int n)
+{
+  if (n != 0) {
+    print_bin(n / 2);
+    print_number(n % 2);
+  }
+}
