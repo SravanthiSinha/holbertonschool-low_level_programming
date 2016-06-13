@@ -26,8 +26,15 @@ int print_unsigned_decimal_int(unsigned int n)
 int print_unsigned_octal(unsigned int n)
 
 {
-  n = n + 1;
-  return 0;
+  int i ;
+  
+  i = 0;
+  print_oct(n);
+  while(n != 0) {
+    n = n/8;
+    i++;
+  }
+  return i;
 }
 
 int print_unsigned_hexdecimal_integer(unsigned int n)

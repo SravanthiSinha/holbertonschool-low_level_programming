@@ -5,6 +5,7 @@ typedef int bool;
 #define true 1
 #define false 0
 
+void print_oct(unsigned int n);
 char* int_str(int num, char* str);
 int print_signed_decimal_int(signed int);
 int print_unsigned_decimal_int(unsigned int);

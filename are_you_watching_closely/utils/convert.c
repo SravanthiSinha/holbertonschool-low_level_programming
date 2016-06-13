@@ -85,3 +85,12 @@ char* int_str(int num, char* str)
   reverse(str, i);
   return str;
 }
+
+
+void print_oct(unsigned int n)
+{
+  if (n != 0) {
+    print_oct(n / 8);
+    print_number(n % 8);
+  }
+}
