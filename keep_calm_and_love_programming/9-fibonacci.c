@@ -12,15 +12,15 @@ int main(void)
   b=1;
   c=0;
 
-  for (count=0;count<=50;count++)
+  for (count=0;count<50;count++)
     {
       printf("%lu",a+b);
-      if(count<50) printf(", ");
+      if(count<49) printf(", ");
       c=a;
       a=b;
       b=c+b;      
     }
-	 printf("\n");
+   printf("\n");
 
   return 0;
 }
