@@ -10,7 +10,7 @@ char *rot13(char *s)
 	{
 	s[i]= (char)(a+13);
 	}
-      else if((a>=110 && a<123) || (a>78 && a<91))
+      else if((a>=110 && a<123) || (a>=78 && a<91))
 	  {
 	s[i]= (char)(a-13);
 	  }
