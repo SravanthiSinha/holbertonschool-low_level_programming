@@ -59,5 +59,6 @@ int main(void)
   printf("%d\n", n);
   n = string_to_integer("---++++ - Sui - te -  402 #cisfun :)");
   printf("Expected: 402\n");
+  printf("%d\n", n);
   return (0);
 }
