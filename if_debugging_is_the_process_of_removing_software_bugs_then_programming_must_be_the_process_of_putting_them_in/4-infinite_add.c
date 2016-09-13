@@ -1,91 +1,71 @@
-#include<stdio.h>
-int str_len(char *str)
-{
-  int len;
+#include<limits.h>
 
-  len=0;
-  while(*(str+len)!='\0')
-    len++;
-  return len;
+int str_len(char *s)
+{
+  int i;
+  i = 0;
+  while(s[i])
+    i++;
+  return i;
 }
 
-/* The function reverse_string takes
- * an pointer to char
- * and prints the string in reverse.
- * It takes a argument (char *) and
- * returns nothing (void)
- */
-
-
-void reverse_string(char *s)
+void shift_left(char *s)
 {
-  int len,i;
-  char p[1000];
-
-  i=0;
-  len=str_len(s) - 1;
-  
-  while(len >= 0)
-    {
-      *(p + i) = *(s + len);
-      len--;
-      i++;
-    }
-
-  *(p + i)='\0';
-  i=0;
-  while(*(p + i) != '\0')
-    {
-      *( s + i ) = *(p + i);
-      i++;
-    }
+  int i ;
+  for(i = 0;i < str_len(s);i++)
+    s[i] = s[i+1];
+  s[i] = '\0';
 }
+
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-  int a,b,i,j,carry,sum,max,c;
-  
-  a=str_len(n1);
-  b=str_len(n2);
-  carry=0;
-  c=0;
-  
-
-  max = (a > b) ? a : b;
-  if(size_r-1>max)
-    {
-      for(i = a-1, j = b-1 ; i >= 0 || j >= 0; i--, j--, c++)
-	{
-	 if(i>=0 && j>=0)
-	   sum = (char) ( (int) n1[i] + (int) n2[j] + carry - 96);
-	 else if(j<0)
-	   {	     
-	   sum = (char) ( (int) n1[i] + carry - 48);
-	   }
-	 else if(i<0)
-	   {	     
-	   sum = (char) ( (int) n2[j] + carry - 48);
-	   }
-	  if(sum >= 10)
-	    {
-	      carry = sum/10;
-	      sum = sum%10;
-	    }
-	  else 
-	    {
-	      carry=0;
-	    }	  
-	  r[c] =(char) (sum+48);
-	}	 
-
-        if(carry>0) 
-	  r[c]=(char) (carry+48);
-      reverse_string(r);
-    }
+  int l1;
+  int l2;
+  int i;
+  int j;
+  int k;
+  int carry;
+  carry = 0;
+  l1=str_len(n1);
+  l2=str_len(n2);
+  if(l1 >= size_r || l2 >= size_r)
+    return 0;
   else
     {
-      return 0;
-    }
-
-
-  return r;
+      if(l1 > l2)
+	k = l1 + 1;
+      else
+	k = l2 + 1;
+      r[k]='\0';
+      k--;
+      for(i = l1-1,j = l2-1; i >= 0 && j >= 0 && k >= 0 ; i--,j--,k--)
+	{
+	  r[k]= (n1[i] + n2[j] + carry - 48 - 48) %10 + 48;
+	  carry = (n1[i] + n2[j] + carry - 48 - 48) / 10 ;
+	}
+      if(l1 > l2)
+	{
+	  for(; i >= 0 && k >= 0; i--,k--)
+	    {
+	      r[k]= (n1[i] - 48 +carry) % 10 + 48;
+	      carry = (n1[i] - 48+carry) / 10 ;
+	    }
+	}
+      else
+	{
+	  for(;j >= 0 && k >= 0 ; j--,k--)
+	    {
+	      r[k]= (n2[j] - 48 + carry) %10 + 48;
+	      carry = (n2[j] - 48 + carry) / 10 ;
+	    }
+	}
+      r[0] = carry+48;
+      if(r[0]=='0')
+	shift_left(r);
+      if(carry>0 && (l1 == size_r-1  || l2 == size_r-1))
+	 return 0;
+       else
+	return r;
+      }
+  return 0;
 }
