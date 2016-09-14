@@ -5,7 +5,7 @@ char uppercase(char);
 char lowercase(char);
 int first_digit(int);
 void swap_int(int *a, int *b);
-int str_len(char *s);
+int str_len(const char *s);
 void print_string(char *str);
 void reverse_string(char *s);
 int string_to_integer(char *s);

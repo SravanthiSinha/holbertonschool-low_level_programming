@@ -1,12 +1,4 @@
-int str_len(char *str)
-{
-  int len;
-
-  len=0;
-  while(*(str+len)!='\0')
-    len++;
-  return len;
-}
+#include "holbertonschool.h"
 
 /* The function reverse_string takes
  * an pointer to char
