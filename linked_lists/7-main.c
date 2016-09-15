@@ -19,15 +19,7 @@ int main(void)
   if (add_node(&list, "CA 94111") == 1)
     return (1);
   print_list(list);
-  remove_from_list(&list, 0);
-  print_list(list);
-  remove_from_list(&list, 2);
-  print_list(list);
-  remove_from_list(&list, 0);
-  print_list(list);
-  remove_from_list(&list, 0);
-  print_list(list);
-  remove_from_list(&list, 0);
+  remove_from_list(&list, 1);
   print_list(list);
   return (0);
 }

@@ -1,61 +1,32 @@
 #include <stdlib.h>
 #include "list.h"
-#include<stdio.h>
+#include <malloc.h>
 
-int str_len(char *s);
-int add_node(List **list, char *content);
-char *string_dup(char *s);
-
-int list_size(List *list)
+char *string_dup(char *str);
+int insert_in_list(List **head, char *content, int index)
 {
   List *node;
-  int size;
-  
-  size = 0;
-  node = list;
-  while(node!= NULL)
-    {
-      size++;
-      node = node->next;
-    }
-  
-  return (size);
-}
-
-
-/*a function that creates a node and then inserts it in a list at a specific index*/
-int insert_in_list(List **list, char *content, int index)
-{
-  int size;
-  List *node;
+  List *curr;
   List *temp;
-  List *new;
   int i;
 
+  node = *head;
   i = 0;
-  size = list_size(*list);
-  if(index < 0)
-    return (1);
-  else if(index >= size || index == 0)
-    return (add_node(list,content));
-  else
+  while(node->next != NULL)
     {
-     node = *list;
-     temp = *list;
-      while(i < index)
-	{
-	  temp = node;
-	  node = node->next;
-	  i++;
-	}      
-      new = malloc(sizeof(List));
-      if( new == NULL)
-	return 1;
-      new->str = string_dup(content);
-      new->next = node;
-      temp->next = new;    
-      return (0);
+      i++;
+      if(i == index)
+	break;
+      node = node->next;
     }
-  
-  return (1); 
+  temp = malloc(sizeof(List));
+  if(temp != NULL)
+    {
+      curr = node;
+      temp->str=string_dup(content);
+      temp->next=curr->next;
+      curr->next=temp;
+      return 0;
+    }
+  return 1;
 }

@@ -1,16 +1,15 @@
 #include <stdlib.h>
 #include "list.h"
-
-void free_list(List *list)
+void free_list(List *head)
 {
-  
-  List *node;  
-  node = list; 
-  while(node != NULL)
+  List *node;
+  List *temp;
+  node = head;
+  while(node!=NULL)
     {
-      free(node->str);
-      free(node);
+      temp = node;      
       node = node->next;
+      free(temp->str);
+      free(temp); 
     }
-
 }

@@ -1,28 +1,17 @@
-#include <stdlib.h>
-#include "list.h"
-
-
-void rev_list(List **list)
+void rev_list(List **head)
 {
-  List *first;
-  List *second;
-  List *temp;
+  List *curr;
+  List *prev;
+  List *nxt;
 
-  first = *list;
-  second = first->next;
-  
-  if(first != NULL && first->next != NULL){
-    first->next = NULL;
-    while(first != NULL && second != NULL)
-      {
-	temp         = second->next;
-	second->next = first;
-	first        = second;
-	if(temp != NULL)
-	  second = temp;
-	else
-	  break;
-      }     
-    *list = second;
-  }
+  prev = NULL;
+  curr = *head;
+  while(curr!=NULL)
+    {
+      nxt = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = nxt;
+    }
+      *head = prev ;
 }
