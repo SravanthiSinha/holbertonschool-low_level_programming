@@ -2,7 +2,6 @@
 #include "list.h"
 #include <malloc.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 int add_end_dl_list(List **list, char *str)
 {
@@ -11,13 +10,8 @@ int add_end_dl_list(List **list, char *str)
 
   node = *list;
   if(node != NULL)
-    {
-      while(node->next!=NULL)
-	{
-	  printf("%s",node->str);
-	  node = node->next;
-	}
-    }
+    while(node->next!=NULL)
+      node = node->next;
   
   temp = malloc(sizeof(List));
     if(temp != NULL)
