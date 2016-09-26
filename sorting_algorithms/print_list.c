@@ -24,16 +24,18 @@ void print_string(char *str)
 void print_list(List *list)
 {
   
-  List *node;  
-  node = list; 
+  List *node;
+  int first;
+  
+  node = list;
+  first =1;
   while(node != NULL)
     {
+      if(!first)
+	print_string(", ");
+      else
+	first = 1;
       print_string(node->str);
-      if(node->next != NULL)
-	{
-	  print_char(',');
-	  print_char(' ');
-	}
       node = node->next;
     }
   print_char('\n');
