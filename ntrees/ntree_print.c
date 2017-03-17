@@ -38,7 +38,8 @@ void print_ntree(NTree *ntree,int tabindex)
     {
       while(i < tabindex)
 	{
-	  print_char('\t');
+	  print_char(' ');
+	  print_char(' ');
 	  i++;
 	}
       print_string(node->str);

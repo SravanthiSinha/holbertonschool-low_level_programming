@@ -1,41 +1,27 @@
 #include <stdlib.h>
+#include <string.h>
 #include "tree.h"
 
-void ntree_free(NTree *tree);
-void free_list(List *head)
-{
-  List *node;
-  List *temp;
-  node = head;
-  while(node)
-    {
-      temp = node;
-      node = node->next;
-      ntree_free(temp->node);
-      free(temp);
-    }
-}
 
-void ntree_free(NTree *tree)
+void ntree_free(NTree *ntree)
 {
-  NTree *node,*temp;
-  node = tree;
+  NTree *node;
+  List *list,*temp;
+  node = ntree;
 
   if(node)
     {
-      temp = node;
-      while(node->children)
-	{
-	  ntree_free(node->children->node);
-	  node->children = node->children->next;
-	  free_list(temp->children);		  
-	  free(temp->str);
-	  temp = node;
+      list =  node->children;
+      while(list)
+	{	  
+	  temp = list;
+	  list = list->next;
+	  ntree_free(temp->node);
+	  free(temp);
 	}
-      free(temp->str);
-      free(temp);
+      free(node->str);
+      free(node);
     }
 
-  return ;
 }
 
