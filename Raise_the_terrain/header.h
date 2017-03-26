@@ -15,9 +15,9 @@
 #define ISOX(x,y)  inclination * x - inclination * y
 #define ISOY(x,y,z)  (1-inclination) * x + (1-inclination) * y - z
 
-#define WIDTH  120
+#define WIDTH  60
 #define LEFT_OFFSET 630
-#define TOP_OFFSET 120
+#define TOP_OFFSET 360
 
 typedef struct SDL_Instance
 {
@@ -26,7 +26,7 @@ typedef struct SDL_Instance
 } SDL_Instance;
 
 int init_instance(SDL_Instance *);
-void draw_grid(SDL_Instance instance,int **altitudes);
+void draw_grid(SDL_Instance instance,int **altitudes,int __attribute__((unused)) angle);
   
 int **getAltitudes(FILE *file);
 

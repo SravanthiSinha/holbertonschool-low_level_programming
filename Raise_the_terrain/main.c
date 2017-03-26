@@ -1,5 +1,5 @@
 #include "header.h"
-
+int angle;
 int poll_events()
 {
   SDL_Event event;
@@ -15,6 +15,10 @@ int poll_events()
 	  key = event.key;
 	  if(key.keysym.scancode == 0x29)
 	    return (1);
+	  if(key.keysym.sym == SDLK_LEFT)
+	    angle += 1;
+	  if(key.keysym.sym == SDLK_RIGHT)
+	    angle -= 1;
 	  break;
 	}
     }
@@ -56,6 +60,7 @@ int main(int argc,char *argv[])
   FILE *file;
   int **altitudes;      
 
+  angle = 0;
   if(init_instance(&instance) != 0)
     return (1);
 
@@ -70,16 +75,12 @@ int main(int argc,char *argv[])
 	  SDL_RenderClear(instance.renderer);
 	  if(poll_events() == 1)
 	    break;
-	  /*
-	   *DrawStuff
-	   */
-	  draw_grid(instance,altitudes);
+	  draw_grid(instance,altitudes,angle);
 	  SDL_RenderPresent(instance.renderer);
 	}
       SDL_DestroyRenderer(instance.renderer);
       SDL_DestroyWindow(instance.window);
-      SDL_Quit();
-      
+      SDL_Quit();      
       free_grid(altitudes,row);
       fclose(file);
     }
