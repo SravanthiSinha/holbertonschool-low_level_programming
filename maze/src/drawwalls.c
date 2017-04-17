@@ -149,11 +149,11 @@ void draw_Walls(SDL_Instance instance, char **fMap, Map map, Tables t, Player pl
     if (distToHGridBeingHit < distToVGridBeingHit)
     {
       dist = distToHGridBeingHit;
-      SDL_SetRenderDrawColor(instance.renderer, 105, 105, 105, 255);
+      SDL_SetRenderDrawColor(instance.renderer, 112, 112, 112, 255);
     } else
     {
       dist = distToVGridBeingHit;
-      SDL_SetRenderDrawColor(instance.renderer, 169, 169, 169, 255);
+      SDL_SetRenderDrawColor(instance.renderer, 149, 149, 149, 255);
     }
     dist /= t.fFishTable[castColumn];
     projectedWallHeight =

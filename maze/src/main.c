@@ -2,7 +2,7 @@
 #include "tables.h"
 #include "maze.h"
 
-int poll_events(void)
+int poll_events(int *angle)
  {
   SDL_Event event;
   SDL_KeyboardEvent key;
@@ -17,6 +17,10 @@ int poll_events(void)
       key = event.key;
       if (key.keysym.scancode == 0x29)
 	return (1);
+      if (key.keysym.sym == SDLK_LEFT)
+	       *angle -= 5;
+	    if (key.keysym.sym == SDLK_RIGHT)
+	       *angle += 5;
       break;
     }
   }
@@ -97,8 +101,12 @@ int init_instance(SDL_Instance *instance)
 
 int start(SDL_Instance instance, char **fMap, Map map, Tables tables)
 {
-  int angle;
-  angle = getCameraAngle();
+  int i;
+  int *angle;
+  i = 0;
+  angle = &i;
+
+  *angle = getCameraAngle();
 
   if (init_instance(&instance) != 0)
     return (1);
@@ -106,9 +114,9 @@ int start(SDL_Instance instance, char **fMap, Map map, Tables tables)
    {
     SDL_SetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
     SDL_RenderClear(instance.renderer);
-    if (poll_events() == 1)
+    if (poll_events(angle) == 1)
       break;
-    draw(instance, angle, fMap, map, tables);
+    draw(instance, *angle, fMap, map, tables);
     SDL_RenderPresent(instance.renderer);
   }
   SDL_DestroyRenderer(instance.renderer);
@@ -126,11 +134,11 @@ int main(int argc, char *argv[])
   char **fMap;
 
   int *row, *col;
-  int i;
+  int i, j;
 
-  i = 0;
+  i = 0, j = 0;
   row = &i;
-  col = &i;
+  col = &j;
   if (argc > 1)
   {
     file = fopen(argv[1], "r");

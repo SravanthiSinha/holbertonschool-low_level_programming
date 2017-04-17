@@ -9,10 +9,9 @@ char **alloc_grid(int x, int y)
   char **array;
 
   /* Allocate array -first array of rows, then each row */
-  array = (char **)malloc(x * sizeof(int *));
-
+  array = (char **)malloc(x * sizeof(char *));
   for (i = 0; i < y; i++)
-    array[i] = (char *)malloc(sizeof(int) * y);
+    array[i] = (char *)malloc(sizeof(char) * y);
 
   if (array == NULL)
     return (NULL);
@@ -20,7 +19,7 @@ char **alloc_grid(int x, int y)
   {
     for (i = 0; i < x; i++)
       for (j = 0; j < y; j++)
-    array[i][j] = 0;
+  array[i][j] = 'O';
   }
   return (array);
 }

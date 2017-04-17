@@ -6,13 +6,13 @@ void draw_Background(SDL_Instance instance)
 {
   int r;
   /*sky */
-  SDL_SetRenderDrawColor(instance.renderer, 0, 191, 255, 255);
+  SDL_SetRenderDrawColor(instance.renderer, 72, 168, 255, 255);
   for (r = 0; r < PROJECTIONPLANEHEIGHT / 2 ; r += 1)
   {
     SDL_RenderDrawLine(instance.renderer, 0, r, PROJECTIONPLANEWIDTH, r);
   }
   /* ground */
-  SDL_SetRenderDrawColor(instance.renderer, 124, 252, 0, 255);
+  SDL_SetRenderDrawColor(instance.renderer, 0, 126, 0, 255);
   for (; r < PROJECTIONPLANEHEIGHT; r += 1)
   {
     SDL_RenderDrawLine(instance.renderer, 0, r, PROJECTIONPLANEWIDTH, r);
