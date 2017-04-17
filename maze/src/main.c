@@ -1,4 +1,6 @@
 #include "header.h"
+#include "tables.h"
+#include "maze.h"
 
 int poll_events(void)
  {
@@ -93,7 +95,7 @@ int init_instance(SDL_Instance *instance)
   return (0);
 }
 
-int start(SDL_Instance instance, char **fMap, int row, int col)
+int start(SDL_Instance instance, char **fMap, Map map, Tables tables)
 {
   int angle;
   angle = getCameraAngle();
@@ -106,7 +108,7 @@ int start(SDL_Instance instance, char **fMap, int row, int col)
     SDL_RenderClear(instance.renderer);
     if (poll_events() == 1)
       break;
-    draw_maze(instance, angle, fMap, row, col);
+    draw(instance, angle, fMap, map, tables);
     SDL_RenderPresent(instance.renderer);
   }
   SDL_DestroyRenderer(instance.renderer);
@@ -118,8 +120,11 @@ int start(SDL_Instance instance, char **fMap, int row, int col)
 int main(int argc, char *argv[])
 {
   SDL_Instance instance;
+  Tables tables;
+  Map map;
   FILE *file;
   char **fMap;
+
   int *row, *col;
   int i;
 
@@ -130,8 +135,10 @@ int main(int argc, char *argv[])
   {
     file = fopen(argv[1], "r");
     fMap = getMap(file, row, col);
-    createTrignometricTables();
-    start(instance, fMap, *row, *col);
+    map.MAP_WIDTH = *row;
+    map.MAP_HEIGHT = *col;
+    createTrignometricTables(&tables);
+    start(instance, fMap, map, tables);
     free_grid(fMap, *row);
     fclose(file);
   }

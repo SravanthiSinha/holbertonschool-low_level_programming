@@ -1,13 +1,13 @@
 #include "header.h"
+#include "tables.h"
 #include "maze.h"
-#include "metrics.h"
 
 void draw_Background(SDL_Instance instance)
 {
   int r;
   /*sky */
   SDL_SetRenderDrawColor(instance.renderer, 0, 191, 255, 255);
-  for (r = 0; r < PROJECTIONPLANEHEIGHT / 2; r += 1)
+  for (r = 0; r < PROJECTIONPLANEHEIGHT / 2 ; r += 1)
   {
     SDL_RenderDrawLine(instance.renderer, 0, r, PROJECTIONPLANEWIDTH, r);
   }
@@ -19,25 +19,24 @@ void draw_Background(SDL_Instance instance)
   }
 }
 
-void draw_maze(SDL_Instance instance, int angle, char **fMap, int row, int col)
+void draw(SDL_Instance instance, int angle, char **fMap, Map map, Tables t)
  {
+  Player player;
   /*Defining point of view*/
-  fPlayerX = PROJECTIONPLANEWIDTH / 2;
+  player.fPlayerX = PROJECTIONPLANEWIDTH / 2;
   /*player’s position*/
-  fPlayerY = PROJECTIONPLANEHEIGHT / 2;
+  player.fPlayerY = PROJECTIONPLANEHEIGHT / 2;
   /*player’s position*/
-  fPlayerArc = angle;
-  /**angle that the player is facing to*/
-  fPlayerDistanceToTheProjectionPlane =
-      PROJECTIONPLANEWIDTH / (fTanTable[ANGLE30] * 2);
+  player.fPlayerArc = angle;
+  /*angle that the player is facing to*/
+  player.fPlayerDistanceToTheProjectionPlane =
+      PROJECTIONPLANEWIDTH / (t.fTanTable[ANGLE30] * 2);
   /*Distance to the Projection Plane*/
-  fPlayerHeight = PROJECTIONPLANEHEIGHT / 2;
+  player.fPlayerHeight = PROJECTIONPLANEHEIGHT / 2;
   /*Player / viewer’s height*/
 
-  fPlayerSpeed = 16;
-  fProjectionPlaneYCenter = PROJECTIONPLANEHEIGHT / 2;
-  MAP_WIDTH = row;
-  MAP_HEIGHT = col;
+  player.fPlayerSpeed = 16;
+  player.fProjectionPlaneYCenter = PROJECTIONPLANEHEIGHT / 2;
   draw_Background(instance);
-  draw_Walls(instance, fMap);
+  draw_Walls(instance, fMap, map, t, player);
 }

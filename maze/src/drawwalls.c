@@ -1,28 +1,28 @@
 #include "header.h"
+#include "tables.h"
 #include "maze.h"
-#include "metrics.h"
 
 float DistToHGridBeingHit
-(char **fMap, int castArc, int HGrid, float xIntersection, int distToNextHGrid)
+(char **fMap, int castArc, int HGrid, float xIntersection, int distToNextHGrid, Tables t, Player player, Map map)
 {
   int xGridIndex; /* the current cell that the ray is in */
   int yGridIndex;
   float distToHGridBeingHit;
   float distToNextXIntersection;
 
-  distToNextXIntersection = fXStepTable[castArc];
+  distToNextXIntersection = t.fXStepTable[castArc];
   while (1)
   {
     xGridIndex = (int)(xIntersection / TILE_SIZE);
     yGridIndex = (HGrid / TILE_SIZE);
-    if ((xGridIndex >= MAP_WIDTH) || (yGridIndex >= MAP_HEIGHT) ||
+    if ((xGridIndex >= map.MAP_WIDTH) || (yGridIndex >= map.MAP_HEIGHT) ||
     xGridIndex < 0 || yGridIndex < 0)
     {
       distToHGridBeingHit = FLT_MAX;
       break;
     } else if ((fMap[yGridIndex][xGridIndex]) != 'O')
     {
-      distToHGridBeingHit = (xIntersection - fPlayerX) * fICosTable[castArc];
+      distToHGridBeingHit = (xIntersection - player.fPlayerX) * t.fICosTable[castArc];
       break;
     } else
     {
@@ -34,26 +34,26 @@ float DistToHGridBeingHit
 }
 
 float DistToVGridBeingHit
-(char **fMap, int castArc, int VGrid, float yIntersection, int distToNextVGrid)
+(char **fMap, int castArc, int VGrid, float yIntersection, int distToNextVGrid, Tables t, Player player, Map map)
 {
   int xGridIndex; /* the current cell that the ray is in */
   int yGridIndex;
   float distToVGridBeingHit;
   float distToNextYIntersection;
 
-  distToNextYIntersection = fYStepTable[castArc];
+  distToNextYIntersection = t.fYStepTable[castArc];
   while (1)
   {
     xGridIndex = (VGrid / TILE_SIZE);
     yGridIndex = (int)(yIntersection / TILE_SIZE);
-    if ((xGridIndex >= MAP_WIDTH) || (yGridIndex >= MAP_HEIGHT) ||
+    if ((xGridIndex >= map.MAP_WIDTH) || (yGridIndex >= map.MAP_HEIGHT) ||
     xGridIndex < 0 || yGridIndex < 0)
     {
       distToVGridBeingHit = FLT_MAX;
       break;
     } else if ((fMap[yGridIndex][xGridIndex]) != 'O')
     {
-      distToVGridBeingHit = (yIntersection - fPlayerY) * fISinTable[castArc];
+      distToVGridBeingHit = (yIntersection - player.fPlayerY) * t.fISinTable[castArc];
       break;
     } else
     {
@@ -64,7 +64,7 @@ float DistToVGridBeingHit
   return (distToVGridBeingHit);
 }
 
-float getDistToVGridBeingHit(int castArc, char **fMap)
+float getDistToVGridBeingHit(int castArc, char **fMap, Map map, Tables t, Player player)
 {
   int VGrid;
   int distToNextVGrid;
@@ -73,16 +73,16 @@ float getDistToVGridBeingHit(int castArc, char **fMap)
 
   if (castArc < ANGLE90 || castArc > ANGLE270)
   {
-    VGrid = TILE_SIZE + (fPlayerX / TILE_SIZE) * TILE_SIZE;
+    VGrid = TILE_SIZE + (player.fPlayerX / TILE_SIZE) * TILE_SIZE;
     distToNextVGrid = TILE_SIZE;
-    float ytemp = fTanTable[castArc] * (VGrid - fPlayerX);
-    yIntersection = ytemp + fPlayerY;
+    float ytemp = t.fTanTable[castArc] * (VGrid - player.fPlayerX);
+    yIntersection = ytemp + player.fPlayerY;
   } else
   {
-    VGrid = (fPlayerX / TILE_SIZE) * TILE_SIZE;
+    VGrid = (player.fPlayerX / TILE_SIZE) * TILE_SIZE;
     distToNextVGrid = -TILE_SIZE;
-    float ytemp = fTanTable[castArc] * (VGrid - fPlayerX);
-    yIntersection = ytemp + fPlayerY;
+    float ytemp = t.fTanTable[castArc] * (VGrid - player.fPlayerX);
+    yIntersection = ytemp + player.fPlayerY;
     VGrid--;
   }
   if (castArc == ANGLE90 || castArc == ANGLE270)
@@ -91,12 +91,12 @@ float getDistToVGridBeingHit(int castArc, char **fMap)
   } else
   {
     return (DistToVGridBeingHit(fMap, castArc, VGrid, yIntersection,
-    distToNextVGrid));
+    distToNextVGrid, t, player, map));
   }
   return (distToVGridBeingHit);
 }
 
-float getDistToHGridBeingHit(int castArc, char **fMap)
+float getDistToHGridBeingHit(int castArc, char **fMap, Map map, Tables t, Player player)
 {
   int HGrid; /* horizotal or V coordinate of intersection*/
   int distToNextHGrid;
@@ -105,16 +105,16 @@ float getDistToHGridBeingHit(int castArc, char **fMap)
 
   if (castArc > ANGLE0 && castArc < ANGLE180)
   {
-    HGrid = (fPlayerY / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
+    HGrid = (player.fPlayerY / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
     distToNextHGrid = TILE_SIZE;
-    float xtemp = fITanTable[castArc] * (HGrid - fPlayerY);
-    xIntersection = xtemp + fPlayerX;
+    float xtemp = t.fITanTable[castArc] * (HGrid - player.fPlayerY);
+    xIntersection = xtemp + player.fPlayerX;
   } else
   {
-    HGrid = (fPlayerY / TILE_SIZE) * TILE_SIZE;
+    HGrid = (player.fPlayerY / TILE_SIZE) * TILE_SIZE;
     distToNextHGrid = -TILE_SIZE;
-    float xtemp = fITanTable[castArc] * (HGrid - fPlayerY);
-    xIntersection = xtemp + fPlayerX;
+    float xtemp = t.fITanTable[castArc] * (HGrid - player.fPlayerY);
+    xIntersection = xtemp + player.fPlayerX;
     HGrid--;
   }
   if (castArc == ANGLE0 || castArc == ANGLE180)
@@ -123,12 +123,12 @@ float getDistToHGridBeingHit(int castArc, char **fMap)
   } else
   {
     return (DistToHGridBeingHit(fMap, castArc, HGrid, xIntersection,
-    distToNextHGrid));
+    distToNextHGrid, t, player, map));
   }
   return (distToHGridBeingHit);
 }
 
-void draw_Walls(SDL_Instance instance, char **fMap)
+void draw_Walls(SDL_Instance instance, char **fMap, Map map, Tables t, Player player)
 {
   int castArc, castColumn;
   float distToVGridBeingHit;
@@ -138,14 +138,14 @@ void draw_Walls(SDL_Instance instance, char **fMap)
   int bottomOfWall;
   float dist;
 
-  castArc = fPlayerArc;
+  castArc = player.fPlayerArc;
   castArc -= ANGLE30;
   if (castArc < 0)
     castArc = ANGLE360 + castArc;
   for (castColumn = 0; castColumn < PROJECTIONPLANEWIDTH; castColumn++)
   {
-    distToHGridBeingHit = getDistToHGridBeingHit(castArc, fMap);
-    distToVGridBeingHit = getDistToVGridBeingHit(castArc, fMap);
+    distToHGridBeingHit = getDistToHGridBeingHit(castArc, fMap, map, t, player);
+    distToVGridBeingHit = getDistToVGridBeingHit(castArc, fMap, map, t, player);
     if (distToHGridBeingHit < distToVGridBeingHit)
     {
       dist = distToHGridBeingHit;
@@ -155,10 +155,10 @@ void draw_Walls(SDL_Instance instance, char **fMap)
       dist = distToVGridBeingHit;
       SDL_SetRenderDrawColor(instance.renderer, 169, 169, 169, 255);
     }
-    dist /= fFishTable[castColumn];
+    dist /= t.fFishTable[castColumn];
     projectedWallHeight =
-    (int)(WALL_HEIGHT * (float)fPlayerDistanceToTheProjectionPlane / dist);
-    bottomOfWall = fProjectionPlaneYCenter + (int)(projectedWallHeight * 0.5F);
+    (int)(WALL_HEIGHT * (float) player.fPlayerDistanceToTheProjectionPlane / dist);
+    bottomOfWall = player.fProjectionPlaneYCenter + (int)(projectedWallHeight * 0.5F);
     topOfWall = PROJECTIONPLANEHEIGHT - bottomOfWall;
     if (bottomOfWall >= PROJECTIONPLANEHEIGHT)
       bottomOfWall = PROJECTIONPLANEHEIGHT - 1;

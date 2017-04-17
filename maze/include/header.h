@@ -7,36 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #define PI M_PI
-
-/**
- * struct SDL_Instance - fetches both the window instance and the renderer
- * @window: The window to be created
- * @renderer: rendering context
- *
- * Defines Window and context to be rendered
- */
-typedef struct SDL_Instance
-{
-SDL_Window *window;
-SDL_Renderer *renderer;
-} SDL_Instance;
-
-/* main.c */
-int init_instance(SDL_Instance *);
-void draw_maze
-(SDL_Instance instance, int angle, char **fMap, int row, int col);
-
-/* utils.c */
-float arcToRad(float arcAngle);
-void createTrignometricTables(void);
-char **getMap(FILE *file, int *row, int *col);
-
-/* grid.c */
-void print_grid(char **grid, int x, int y);
-char **alloc_grid(int x, int y);
-void free_grid(char **grid, int h);
 
 /* Defining PROJECTION ATTRIBUTES */
 #define TILE_SIZE 128
@@ -53,4 +24,28 @@ void free_grid(char **grid, int h);
 #define ANGLE0 0
 #define ANGLE5 (ANGLE30 / 6)
 #define ANGLE10 (ANGLE5 * 2)
+
+/**
+ * struct SDL_Instance - fetches both the window instance and the renderer
+ * @window: The window to be created
+ * @renderer: rendering context
+ *
+ * Defines Window and context to be rendered
+ */
+typedef struct SDL_Instance
+{
+SDL_Window *window;
+SDL_Renderer *renderer;
+} SDL_Instance;
+
+/* main.c */
+int init_instance(SDL_Instance *);
+
+char **getMap(FILE *file, int *row, int *col);
+
+/* grid.c */
+void print_grid(char **grid, int x, int y);
+char **alloc_grid(int x, int y);
+void free_grid(char **grid, int h);
+
 #endif

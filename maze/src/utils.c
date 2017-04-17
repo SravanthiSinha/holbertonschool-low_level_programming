@@ -1,5 +1,6 @@
 #include "header.h"
-#include "metrics.h"
+#include "tables.h"
+
 /**
  * Convert arc to radian
  */
@@ -11,7 +12,7 @@ float arcToRad(float arcAngle)
 /**
  * Create stemp and fishbown values to make the program runs faster.
  */
-void createStepTables(void)
+void createStepTables(Tables *t)
 {
   int i;
   float radian;
@@ -20,43 +21,43 @@ void createStepTables(void)
    {
     if (i >= ANGLE90 && i < ANGLE270)
     {
-      fXStepTable[i] = (float)(TILE_SIZE / fTanTable[i]);
-      if (fXStepTable[i] > 0)
-    fXStepTable[i] = -fXStepTable[i];
+      t->fXStepTable[i] = (float)(TILE_SIZE / t->fTanTable[i]);
+      if (t->fXStepTable[i] > 0)
+    t->fXStepTable[i] = -t->fXStepTable[i];
     }
     /* facing right*/
     else
     {
-      fXStepTable[i] = (float)(TILE_SIZE / fTanTable[i]);
-      if (fXStepTable[i] < 0)
-    fXStepTable[i] = -fXStepTable[i];
+      t->fXStepTable[i] = (float)(TILE_SIZE / t->fTanTable[i]);
+      if (t->fXStepTable[i] < 0)
+    t->fXStepTable[i] = -t->fXStepTable[i];
     }
     /* FACING DOWN*/
     if (i >= ANGLE0 && i < ANGLE180)
     {
-      fYStepTable[i] = (float)(TILE_SIZE * fTanTable[i]);
-      if (fYStepTable[i] < 0)
-    fYStepTable[i] = -fYStepTable[i];
+      t->fYStepTable[i] = (float)(TILE_SIZE * t->fTanTable[i]);
+      if (t->fYStepTable[i] < 0)
+    t->fYStepTable[i] = -t->fYStepTable[i];
     }
     /* FACING UP */
     else
     {
-      fYStepTable[i] = (float)(TILE_SIZE * fTanTable[i]);
-      if (fYStepTable[i] > 0)
-    fYStepTable[i] = -fYStepTable[i];
+      t->fYStepTable[i] = (float)(TILE_SIZE * t->fTanTable[i]);
+      if (t->fYStepTable[i] > 0)
+    t->fYStepTable[i] = -t->fYStepTable[i];
     }
   }
   for (i = -ANGLE30; i <= ANGLE30; i++)
   {
     radian = arcToRad(i);
-    fFishTable[i + ANGLE30] = (float)(1.0F / cos(radian));
+    t->fFishTable[i + ANGLE30] = (float)(1.0F / cos(radian));
   }
 }
 
 /**
  * Create tigonometric values to make the program runs faster.
  */
-void createTrignometricTables(void)
+void createTrignometricTables(Tables  *t)
 {
   int i;
   float radian;
@@ -64,12 +65,12 @@ void createTrignometricTables(void)
   for (i = 0; i <= ANGLE360; i++)
    {
     radian = arcToRad(i) + (float)(0.0001);
-    fSinTable[i] = (float)sin(radian);
-    fISinTable[i] = (1.0F / (fSinTable[i]));
-    fCosTable[i] = (float)cos(radian);
-    fICosTable[i] = (1.0F / (fCosTable[i]));
-    fTanTable[i] = (float)tan(radian);
-    fITanTable[i] = (1.0F / fTanTable[i]);
+    t->fSinTable[i] = (float)sin(radian);
+    t->fISinTable[i] = (1.0F / (t->fSinTable[i]));
+    t->fCosTable[i] = (float)cos(radian);
+    t->fICosTable[i] = (1.0F / (t->fCosTable[i]));
+    t->fTanTable[i] = (float)tan(radian);
+    t->fITanTable[i] = (1.0F / t->fTanTable[i]);
   }
-  createStepTables();
+  createStepTables(t);
 }
