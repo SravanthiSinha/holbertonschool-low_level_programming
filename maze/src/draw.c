@@ -29,7 +29,7 @@ void init_player(Player *player, Tables tables, int angle)
    player->fPlayerArc = angle;
    /*angle that the player is facing to*/
    player->fPlayerDistanceToTheProjectionPlane =
-       PROJECTIONPLANEWIDTH / (tables.fTanTable[ANGLE30] * 2);
+   PROJECTIONPLANEWIDTH / (tables.fTanTable[ANGLE30] * 2);
    /*Distance to the Projection Plane*/
    player->fPlayerHeight = PROJECTIONPLANEHEIGHT / 2;
    /*Player / viewer’s height*/
@@ -43,11 +43,12 @@ void move(Player *player, Tables t, char key, Map map)
   float playerXDir = t.fCosTable[player->fPlayerArc];
   float playerYDir = t.fSinTable[player->fPlayerArc];
   int px, py;
-  px = (int)(player->fPlayerX / TILE_SIZE);
-  py = (int)(player->fPlayerY / TILE_SIZE);
+  px = player->fPlayerX ;
+  py = player->fPlayerY;
+  printf("%d %d\n", px, py);
   if (key == 'w')
   {
-    if (px < (map.MAP_WIDTH - 2) && py < (map.MAP_HEIGHT - 2))
+    if (px < (map.MAP_WIDTH - 2) * TILE_SIZE && py < (map.MAP_WIDTH - 1) * TILE_SIZE)
     {
       player->fPlayerX += (int)(playerXDir * player->fPlayerSpeed);
       player->fPlayerY += (int)(playerYDir * player->fPlayerSpeed);
@@ -55,7 +56,7 @@ void move(Player *player, Tables t, char key, Map map)
   }
   if (key == 's')
   {
-    if (px > 1 || py > 1)
+    if (px > TILE_SIZE  && py > TILE_SIZE)
     {
       player->fPlayerX -= (int)(playerXDir * player->fPlayerSpeed);
       player->fPlayerY -= (int)(playerYDir * player->fPlayerSpeed);

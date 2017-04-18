@@ -18,9 +18,9 @@ int poll_events(Player *player, Tables t, Map map)
 	if (key.keysym.scancode == 0x29)
 	  return (1);
 	if (key.keysym.sym == SDLK_LEFT)
-	  player->fPlayerArc -= 5;
+	  orient(player, 'a');
 	if (key.keysym.sym == SDLK_RIGHT)
-	  player->fPlayerArc += 5;
+	orient(player, 'd');
 	if (key.keysym.sym == SDLK_UP || key.keysym.sym == SDLK_w)
 	  move(player, t, 'w', map);
 	if (key.keysym.sym == SDLK_DOWN || key.keysym.sym == SDLK_s)
