@@ -38,19 +38,28 @@ void init_player(Player *player, Tables tables, int angle)
    player->fProjectionPlaneYCenter = PROJECTIONPLANEHEIGHT / 2;
 }
 
-void move(Player *player, Tables t, char key)
+void move(Player *player, Tables t, char key, Map map)
 {
   float playerXDir = t.fCosTable[player->fPlayerArc];
   float playerYDir = t.fSinTable[player->fPlayerArc];
+  int px, py;
+  px = (int)(player->fPlayerX / TILE_SIZE);
+  py = (int)(player->fPlayerY / TILE_SIZE);
   if (key == 'w')
   {
-    player->fPlayerX += (int)(playerXDir * player->fPlayerSpeed);
-    player->fPlayerY += (int)(playerYDir * player->fPlayerSpeed);
+    if (px < (map.MAP_WIDTH - 2) && py < (map.MAP_HEIGHT - 2))
+    {
+      player->fPlayerX += (int)(playerXDir * player->fPlayerSpeed);
+      player->fPlayerY += (int)(playerYDir * player->fPlayerSpeed);
+    }
   }
   if (key == 's')
   {
-    player->fPlayerX -= (int)(playerXDir * player->fPlayerSpeed);
-    player->fPlayerY -= (int)(playerYDir * player->fPlayerSpeed);
+    if (px > 1 || py > 1)
+    {
+      player->fPlayerX -= (int)(playerXDir * player->fPlayerSpeed);
+      player->fPlayerY -= (int)(playerYDir * player->fPlayerSpeed);
+    }
   }
 }
 

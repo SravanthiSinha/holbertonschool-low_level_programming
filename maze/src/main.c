@@ -2,7 +2,7 @@
 #include "tables.h"
 #include "maze.h"
 
-int poll_events(Player *player, Tables t)
+int poll_events(Player *player, Tables t, Map map)
  {
   SDL_Event event;
   SDL_KeyboardEvent key;
@@ -22,9 +22,9 @@ int poll_events(Player *player, Tables t)
 	if (key.keysym.sym == SDLK_RIGHT)
 	  player->fPlayerArc += 5;
 	if (key.keysym.sym == SDLK_UP || key.keysym.sym == SDLK_w)
-	  move(player, t, 'w');
-	if (key.keysym.sym == SDL_KEYDOWN || key.keysym.sym == SDLK_s)
-	  move(player, t, 's');
+	  move(player, t, 'w', map);
+	if (key.keysym.sym == SDLK_DOWN || key.keysym.sym == SDLK_s)
+	  move(player, t, 's', map);
 	if (key.keysym.sym == SDLK_a)
 	  orient(player, 'a');
 	if (key.keysym.sym == SDLK_d)
@@ -125,7 +125,7 @@ int start(SDL_Instance instance, char **fMap, Map map, Tables tables)
    {
     SDL_SetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
     SDL_RenderClear(instance.renderer);
-    if (poll_events(&player, tables) == 1)
+    if (poll_events(&player, tables, map) == 1)
       break;
     draw(instance, fMap, map, tables, player);
     SDL_RenderPresent(instance.renderer);

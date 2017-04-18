@@ -21,7 +21,7 @@ typedef struct Map
 
 void init_player(Player *player, Tables tables, int angle);
 void draw(SDL_Instance instance, char **fMap, Map map, Tables tables, Player p);
-void move(Player *player, Tables t, char key);
+void move(Player *player, Tables t, char key, Map map);
 void orient(Player *player, char key);
 void draw_Walls(SDL_Instance instance, char **fMap, Map map, Tables t, Player p);
 float DistToHGridBeingHit
