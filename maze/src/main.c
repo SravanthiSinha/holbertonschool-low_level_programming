@@ -2,7 +2,7 @@
 #include "tables.h"
 #include "maze.h"
 
-int poll_events(int *angle)
+int poll_events(Player *player, Tables t)
  {
   SDL_Event event;
   SDL_KeyboardEvent key;
@@ -10,19 +10,27 @@ int poll_events(int *angle)
   while (SDL_PollEvent(&event))
   {
     switch (event.type)
-    {
-    case SDL_QUIT:
-      return (1);
-    case SDL_KEYDOWN:
-      key = event.key;
-      if (key.keysym.scancode == 0x29)
+      {
+      case SDL_QUIT:
 	return (1);
-      if (key.keysym.sym == SDLK_LEFT)
-	       *angle -= 5;
-	    if (key.keysym.sym == SDLK_RIGHT)
-	       *angle += 5;
-      break;
-    }
+      case SDL_KEYDOWN:
+	key = event.key;
+	if (key.keysym.scancode == 0x29)
+	  return (1);
+	if (key.keysym.sym == SDLK_LEFT)
+	  player->fPlayerArc -= 5;
+	if (key.keysym.sym == SDLK_RIGHT)
+	  player->fPlayerArc += 5;
+	if (key.keysym.sym == SDLK_w)
+	  move(player, t, 'w');
+	if (key.keysym.sym == SDLK_s)
+	  move(player, t, 's');
+	if (key.keysym.sym == SDLK_a)
+	  orient(player, 'a');
+	if (key.keysym.sym == SDLK_d)
+	  orient(player, 'd');
+	break;
+      }
   }
   return (0);
 }
@@ -103,20 +111,22 @@ int start(SDL_Instance instance, char **fMap, Map map, Tables tables)
 {
   int i;
   int *angle;
+  Player player;
+
   i = 0;
   angle = &i;
 
   *angle = getCameraAngle();
-
   if (init_instance(&instance) != 0)
     return (1);
+  init_player(&player, tables, *angle);
   while (1)
    {
     SDL_SetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
     SDL_RenderClear(instance.renderer);
-    if (poll_events(angle) == 1)
+    if (poll_events(&player, tables) == 1)
       break;
-    draw(instance, *angle, fMap, map, tables);
+    draw(instance, fMap, map, tables, player);
     SDL_RenderPresent(instance.renderer);
   }
   SDL_DestroyRenderer(instance.renderer);

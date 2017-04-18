@@ -19,8 +19,10 @@ typedef struct Map
   int MAP_HEIGHT;
 } Map;
 
-
-void draw(SDL_Instance instance, int angle, char **fMap, Map map, Tables tables);
+void init_player(Player *player, Tables tables, int angle);
+void draw(SDL_Instance instance, char **fMap, Map map, Tables tables, Player p);
+void move(Player *player, Tables t, char key);
+void orient(Player *player, char key);
 void draw_Walls(SDL_Instance instance, char **fMap, Map map, Tables t, Player p);
 float DistToHGridBeingHit
 (char **fMap, int castArc, int HGrid, float xIntersection, int distToNextHGrid, Tables t, Player player, Map map);
