@@ -20,7 +20,7 @@ float DistToHGridBeingHit
     {
       distToHGridBeingHit = FLT_MAX;
       break;
-    } else if ((fMap[yGridIndex][xGridIndex]) != 'O')
+    } else if ((fMap[xGridIndex][yGridIndex]) != 'O')
     {
       distToHGridBeingHit = (xIntersection - player.fPlayerX) * t.fICosTable[castArc];
       break;
@@ -51,7 +51,7 @@ float DistToVGridBeingHit
     {
       distToVGridBeingHit = FLT_MAX;
       break;
-    } else if ((fMap[yGridIndex][xGridIndex]) != 'O')
+    } else if ((fMap[xGridIndex][yGridIndex]) != 'O')
     {
       distToVGridBeingHit = (yIntersection - player.fPlayerY) * t.fISinTable[castArc];
       break;

@@ -8,7 +8,7 @@ int poll_events(Player *player, Tables t)
   SDL_KeyboardEvent key;
 
   while (SDL_PollEvent(&event))
-  {
+    {
     switch (event.type)
       {
       case SDL_QUIT:
@@ -21,9 +21,9 @@ int poll_events(Player *player, Tables t)
 	  player->fPlayerArc -= 5;
 	if (key.keysym.sym == SDLK_RIGHT)
 	  player->fPlayerArc += 5;
-	if (key.keysym.sym == SDLK_w)
+	if (key.keysym.sym == SDLK_UP || key.keysym.sym == SDLK_w)
 	  move(player, t, 'w');
-	if (key.keysym.sym == SDLK_s)
+	if (key.keysym.sym == SDL_KEYDOWN || key.keysym.sym == SDLK_s)
 	  move(player, t, 's');
 	if (key.keysym.sym == SDLK_a)
 	  orient(player, 'a');
@@ -31,13 +31,14 @@ int poll_events(Player *player, Tables t)
 	  orient(player, 'd');
 	break;
       }
-  }
+    }
   return (0);
 }
 
 int getCameraAngle(void)
 {
   int angle;
+
   printf("Choose the options from 1 to 10 for angle of the camera:\n");
   printf("1:ANGLE0\n");
   printf("2:ANGLE5\n");
