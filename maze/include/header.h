@@ -34,8 +34,8 @@
  */
 typedef struct SDL_Instance
 {
-SDL_Window *window;
-SDL_Renderer *renderer;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
 } SDL_Instance;
 
 /* main.c */

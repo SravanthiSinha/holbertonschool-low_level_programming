@@ -2,75 +2,82 @@
 #include "tables.h"
 
 /**
- * Convert arc to radian
+ * arcToRad - Takes arcAngle and returns its value in radians.
+ * @arcAngle: arcAngle to be converted.
+ * Description: Takes arcAngle and returns its value in radians.
+ * Return: value in radians.
  */
 float arcToRad(float arcAngle)
 {
-  return ((float)(arcAngle * PI) / (float)ANGLE180);
+	return ((float)(arcAngle * PI) / (float)ANGLE180);
 }
 
 /**
- * Create stemp and fishbown values to make the program runs faster.
+ * createStepTables - Create step and fishbown values
+ * @tables: Stores the step, fishbown values in tables.
+ * Description: Create step and fishbown values	to make the program run faster.
  */
-void createStepTables(Tables *t)
+void createStepTables(Tables *tables)
 {
-  int i;
-  float radian;
+	int i;
+	float radian;
 
-  for (i = 0; i <= ANGLE360; i++)
-   {
-    if (i >= ANGLE90 && i < ANGLE270)
-    {
-      t->fXStepTable[i] = (float)(TILE_SIZE / t->fTanTable[i]);
-      if (t->fXStepTable[i] > 0)
-    t->fXStepTable[i] = -t->fXStepTable[i];
-    }
-    /* facing right*/
-    else
-    {
-      t->fXStepTable[i] = (float)(TILE_SIZE / t->fTanTable[i]);
-      if (t->fXStepTable[i] < 0)
-    t->fXStepTable[i] = -t->fXStepTable[i];
-    }
-    /* FACING DOWN*/
-    if (i >= ANGLE0 && i < ANGLE180)
-    {
-      t->fYStepTable[i] = (float)(TILE_SIZE * t->fTanTable[i]);
-      if (t->fYStepTable[i] < 0)
-    t->fYStepTable[i] = -t->fYStepTable[i];
-    }
-    /* FACING UP */
-    else
-    {
-      t->fYStepTable[i] = (float)(TILE_SIZE * t->fTanTable[i]);
-      if (t->fYStepTable[i] > 0)
-    t->fYStepTable[i] = -t->fYStepTable[i];
-    }
-  }
-  for (i = -ANGLE30; i <= ANGLE30; i++)
-  {
-    radian = arcToRad(i);
-    t->fFishTable[i + ANGLE30] = (float)(1.0F / cos(radian));
-  }
+	for (i = 0; i <= ANGLE360 ; i++)
+	{
+		if (i >= ANGLE90 && i < ANGLE270)
+		{
+			tables->fXStepTable[i] = (float)(TILE_SIZE / tables->fTanTable[i]);
+			if (tables->fXStepTable[i] > 0)
+				tables->fXStepTable[i] = -tables->fXStepTable[i];
+		}
+		/* facing right*/
+		else
+		{
+			tables->fXStepTable[i] = (float)(TILE_SIZE / tables->fTanTable[i]);
+			if (tables->fXStepTable[i] < 0)
+				tables->fXStepTable[i] = -tables->fXStepTable[i];
+		}
+		/* FACING DOWN*/
+		if (i >= ANGLE0 && i < ANGLE180)
+		{
+			tables->fYStepTable[i] = (float)(TILE_SIZE * tables->fTanTable[i]);
+			if (tables->fYStepTable[i] < 0)
+				tables->fYStepTable[i] = -tables->fYStepTable[i];
+		}
+		/* FACING UP */
+		else
+		{
+			tables->fYStepTable[i] = (float)(TILE_SIZE * tables->fTanTable[i]);
+			if (tables->fYStepTable[i] > 0)
+				tables->fYStepTable[i] = -tables->fYStepTable[i];
+		}
+	}
+	for (i = -ANGLE30; i <= ANGLE30; i++)
+	{
+		radian = arcToRad(i);
+		tables->fFishTable[i + ANGLE30] = (float)(1.0F / cos(radian));
+	}
 }
 
 /**
- * Create tigonometric values to make the program runs faster.
+ * createTrignometricTables - Create tigonometric values values
+ * @tables: Stores the tigonometric values in tables.
+ * Description: Create tigonometric values to make the program run faster.
  */
-void createTrignometricTables(Tables  *t)
+void createTrignometricTables(Tables  *tables)
 {
-  int i;
-  float radian;
+	int i;
+	float radian;
 
-  for (i = 0; i <= ANGLE360; i++)
-   {
-    radian = arcToRad(i) + (float)(0.0001);
-    t->fSinTable[i] = (float)sin(radian);
-    t->fISinTable[i] = (1.0F / (t->fSinTable[i]));
-    t->fCosTable[i] = (float)cos(radian);
-    t->fICosTable[i] = (1.0F / (t->fCosTable[i]));
-    t->fTanTable[i] = (float)tan(radian);
-    t->fITanTable[i] = (1.0F / t->fTanTable[i]);
-  }
-  createStepTables(t);
+	for (i = 0; i <= ANGLE360; i++)
+	{
+		radian = arcToRad(i) + (float)(0.0001);
+		tables->fSinTable[i] = (float)sin(radian);
+		tables->fISinTable[i] = (1.0F / (tables->fSinTable[i]));
+		tables->fCosTable[i] = (float)cos(radian);
+		tables->fICosTable[i] = (1.0F / (tables->fCosTable[i]));
+		tables->fTanTable[i] = (float)tan(radian);
+		tables->fITanTable[i] = (1.0F / tables->fTanTable[i]);
+	}
+	createStepTables(tables);
 }

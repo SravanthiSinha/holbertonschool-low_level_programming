@@ -1,7 +1,21 @@
 #ifndef _TABLES_H_
 #define _TABLES_H_
 
-/* trigonometric tables */
+/**
+ * struct Tables - stores trignometric, step, fishbown table values
+ * @fSinTable: sin values
+ * @fISinTable: inverse sin values
+ * @fCosTable: cos values
+ * @fICosTable: inverse cos values
+ * @fTanTable: tan values
+ * @fITanTable: inverse tan values
+ * @fTanTable: tan values
+ * @fFishTable: fish effect values
+ * @fXStepTable: step X values
+ * @fYStepTable: step Y values
+ *
+ *  Stores trignometric, step, fishbown table values
+ */
 typedef struct Tables
 {
 float fSinTable[ANGLE360 + 1];
