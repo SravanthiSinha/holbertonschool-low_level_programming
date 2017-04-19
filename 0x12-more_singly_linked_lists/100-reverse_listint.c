@@ -7,7 +7,7 @@
  *
  * Return: a pointer to the first node of the reversed list
  */
-listint_tint_t *reverse_listint_tint(listint_tint_t **head)
+listint_t *reverse_listint_tint(listint_t **head)
 {
 	listint_t *prev;
 	listint_t *nxt;
@@ -15,11 +15,11 @@ listint_tint_t *reverse_listint_tint(listint_tint_t **head)
 	prev = NULL;
 	while (*head != NULL)
 	{
-		nxt = *head->next;
-		*head->next = prev;
+		nxt = (*head)->next;
+		(*head)->next = prev;
 		prev = *head;
-		curr = nxt;
+		*head = nxt;
 	}
 	*head = prev;
-	return (head);
+	return (*head);
 }
