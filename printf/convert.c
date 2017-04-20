@@ -1,9 +1,8 @@
 #include "holberton.h"
 #include <limits.h>
 
-
 /**
- * is_number - checks if a character represnts a a number
+ * is_number - checks if a character represnts a  number
  * @c: character to be checked
  * @option: values or 1 and 0
  * Description: checks if a character represnts a a number

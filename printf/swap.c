@@ -1,7 +1,7 @@
 #include "holberton.h"
 
 /**
- * swap - swap by reference
+ * swap - swap characters by reference
  * @a: value to be swapped
  * @b: value to be swapped
  */
