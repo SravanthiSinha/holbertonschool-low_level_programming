@@ -48,4 +48,6 @@ void print_grid(char **grid, int x, int y);
 char **alloc_grid(int x, int y);
 void free_grid(char **grid, int h);
 
+void Init_SDL_Rect(SDL_Rect *Rect, int XPos, int YPos, int Width, int Height);
+
 #endif

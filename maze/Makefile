@@ -1,4 +1,4 @@
-CC 		= 	gcc
+CC 	= 	gcc
 CFLAGS 	= 	-Wall -Werror -Wextra -pedantic `sdl2-config --cflags`
 
 _SRC 	= 				main.c \
@@ -12,7 +12,7 @@ SRC 	= 	$(patsubst %,$(SDIR)/%,$(_SRC))
 _OBJ 	= 	$(_SRC:.c=.o)
 OBJECTS 	= 	$(patsubst %,$(ODIR)/%,$(_OBJ))
 
-_DEPS 	= 	maze.h
+_DEPS 	= 	maze.h header.h tables.h
 DEPS 	= 	$(patsubst %,$(IDIR)/%,$(_DEPS))
 
 IDIR 	= 	./inc

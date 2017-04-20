@@ -172,6 +172,7 @@ float getDistToHGridBeingHit(int c, char **w, Map map, Tables t, Player player)
 	return (distToHGridBeingHit);
 }
 
+
 /**
  * draw_Walls - Draws the walls
  * @instance: the instance which is used to be rendered.
@@ -191,6 +192,7 @@ void draw_Walls(SDL_Instance instance, char **w, Map map, Tables t, Player p)
 	int topOfWall;
 	int bottomOfWall;
 	float dist;
+	SDL_Rect fillRect;
 
 	castArc = p.fPlayerArc;
 	castArc -= ANGLE30;
@@ -216,8 +218,7 @@ void draw_Walls(SDL_Instance instance, char **w, Map map, Tables t, Player p)
 		topOfWall = PROJECTIONPLANEHEIGHT - bottomOfWall;
 		if (bottomOfWall >= PROJECTIONPLANEHEIGHT)
 			bottomOfWall = PROJECTIONPLANEHEIGHT - 1;
-		SDL_Rect fillRect = {castColumn, topOfWall, 1, pWallHeight};
-
+		Init_SDL_Rect(&fillRect, castColumn, topOfWall, 1, pWallHeight);
 		SDL_RenderFillRect(instance.renderer, &fillRect);
 		castArc += 1;
 		if (castArc >= ANGLE360)

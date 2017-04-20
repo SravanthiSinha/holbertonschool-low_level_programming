@@ -1,6 +1,24 @@
 #include "header.h"
 #include "tables.h"
 
+
+/**
+ * Init_SDL_Rect - instantiates the SDL_Rect value with passed variables
+ * @Rect: the SDL_Rect to be instantiated
+ * @XPos: the x location of the rectangle's upper left corner
+ * @YPos:the y location of the rectangle's upper left corner
+ * @Width: the width of the rectangle
+ * @Height: the height of the rectangle
+ * Description: instantiates the SDL_Rect value with passed variables.
+ */
+void Init_SDL_Rect(SDL_Rect *Rect, int XPos, int YPos, int Width, int Height)
+{
+	Rect->h = Height;
+	Rect->w = Width;
+	Rect->x = XPos;
+	Rect->y = YPos;
+}
+
 /**
  * arcToRad - Takes arcAngle and returns its value in radians.
  * @arcAngle: arcAngle to be converted.
