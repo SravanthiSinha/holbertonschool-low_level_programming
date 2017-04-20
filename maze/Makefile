@@ -1,7 +1,7 @@
 CC 		= 	gcc
 CFLAGS 	= 	-Wall -Werror -Wextra -pedantic `sdl2-config --cflags`
 
-_SRC 	= 	main.c \
+_SRC 	= 				main.c \
 					draw.c \
 					drawwalls.c \
 					map.c \
@@ -15,7 +15,7 @@ OBJECTS 	= 	$(patsubst %,$(ODIR)/%,$(_OBJ))
 _DEPS 	= 	maze.h
 DEPS 	= 	$(patsubst %,$(IDIR)/%,$(_DEPS))
 
-IDIR 	= 	./include
+IDIR 	= 	./inc
 SDIR 	= 	./src
 ODIR 	= 	./obj
 OUTPUT 	= 	maze
