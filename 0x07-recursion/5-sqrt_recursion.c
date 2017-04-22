@@ -16,7 +16,7 @@ int sqrt_cal(int n, int c)
 		return (c);
 	else if (n < sum)
 		return (-1);
-	return (sqrt_helper(n, ++c));
+	return (sqrt_cal(n, ++c));
 }
 
 /**
