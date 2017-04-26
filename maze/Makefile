@@ -1,4 +1,4 @@
-CC 	= 	gcc
+CC 	= 	gcc-4.8
 CFLAGS 	= 	-Wall -Werror -Wextra -pedantic `sdl2-config --cflags`
 
 _SRC 	= 				main.c \
