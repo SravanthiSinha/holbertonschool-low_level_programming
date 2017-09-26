@@ -15,7 +15,7 @@ All bash scripts require execution permissions:
 chmod u+x file
 ```
 ### Directories
-Each directory is named after a concept and contains ordered exercises from mandatory to advance level, and a README.md with a short description of its files.
+Each directory  is named after a concept (most with codename) and contains ordered exercises from mandatory to advance level, and a README.md with a short description of its files.
 ## Author
 **Sravanthi Sinha**
 I have coded all of these exercises during my software engineering training at [Holberton School](https://holbertonschool.com) and are part of low-level-track curriculum.
